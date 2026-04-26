@@ -1,555 +1,1386 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register – Assam Engineering Institute</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
-      --navy: #0a1f44; --navy-light: #122558; --gold: #c9a84c; --gold-light: #e8c96d;
-      --white: #ffffff; --offwhite: #f7f8fc; --text: #2d2d2d; --text-muted: #6b7280;
-      --border: #e5e7eb; --shadow: 0 4px 24px rgba(10,31,68,0.10); --radius: 12px;
+      --navy: #0a1f44;
+      --navy-light: #122558;
+      --gold: #c9a84c;
+      --gold-light: #e8c96d;
+      --white: #ffffff;
+      --offwhite: #f7f8fc;
+      --text: #2d2d2d;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 4px 24px rgba(10, 31, 68, 0.10);
+      --radius: 12px;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--offwhite); overflow-x: hidden; }
 
-    .topbar { background: var(--navy); color: #ccd6f0; font-size: 0.78rem; padding: 7px 40px; display: flex; justify-content: space-between; align-items: center; }
-    .topbar a { color: var(--gold-light); text-decoration: none; margin-left: 16px; }
-    .topbar-badge { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    header { background: var(--white); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 12px rgba(10,31,68,0.08); }
-    .header-left { display: flex; align-items: center; gap: 16px; }
-    .logo-circle { width: 58px; height: 58px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid var(--gold); flex-shrink: 0; }
-    .logo-circle span { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
-    .college-info h1 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--navy); }
-    .college-info p { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
-    .header-right { display: flex; gap: 10px; }
-    .btn-login { background: var(--navy); color: var(--white); padding: 8px 20px; border-radius: 6px; text-decoration: none; font-size: 0.84rem; font-weight: 500; }
-    .btn-apply { background: var(--gold); color: var(--navy); padding: 8px 20px; border-radius: 6px; text-decoration: none; font-size: 0.84rem; font-weight: 600; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-    nav { background: var(--navy); padding: 0 40px; display: flex; }
-    nav a { color: #c8d4ec; text-decoration: none; font-size: 0.87rem; font-weight: 500; padding: 13px 16px; display: block; position: relative; transition: color 0.2s; }
-    nav a:hover, nav a.active { color: var(--gold); }
-    nav a.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--gold); }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--offwhite);
+      overflow-x: hidden;
+    }
 
-    .page-hero { background: linear-gradient(120deg, var(--navy) 0%, #1a3a7a 100%); padding: 48px 40px; position: relative; overflow: hidden; }
-    .page-hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%); }
-    .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-    .breadcrumb a { color: #a8bde0; text-decoration: none; font-size: 0.8rem; }
-    .breadcrumb a:hover { color: var(--gold); }
-    .breadcrumb .sep, .breadcrumb .cur { color: #a8bde0; font-size: 0.8rem; }
-    .breadcrumb .cur { color: var(--gold); }
-    .page-hero h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--white); margin-bottom: 8px; position: relative; z-index: 2; }
-    .page-hero h2 span { color: var(--gold); }
-    .page-hero p { color: #a8bde0; font-size: 0.93rem; max-width: 500px; line-height: 1.7; position: relative; z-index: 2; }
+    .topbar {
+      background: var(--navy);
+      color: #ccd6f0;
+      font-size: 0.78rem;
+      padding: 7px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topbar a {
+      color: var(--gold-light);
+      text-decoration: none;
+      margin-left: 16px;
+    }
+
+    .topbar-badge {
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    header {
+      background: var(--white);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid var(--gold);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 12px rgba(10, 31, 68, 0.08);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-circle {
+      width: 58px;
+      height: 58px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    .logo-circle span {
+      color: var(--gold);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .college-info h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--navy);
+    }
+
+    .college-info p {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-login {
+      background: var(--navy);
+      color: var(--white);
+      padding: 8px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 500;
+    }
+
+    .btn-apply {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 8px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    nav {
+      background: var(--navy);
+      padding: 0 40px;
+      display: flex;
+    }
+
+    nav a {
+      color: #c8d4ec;
+      text-decoration: none;
+      font-size: 0.87rem;
+      font-weight: 500;
+      padding: 13px 16px;
+      display: block;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--gold);
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gold);
+    }
+
+    .page-hero {
+      background: linear-gradient(120deg, var(--navy) 0%, #1a3a7a 100%);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .breadcrumb a {
+      color: #a8bde0;
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--gold);
+    }
+
+    .breadcrumb .sep,
+    .breadcrumb .cur {
+      color: #a8bde0;
+      font-size: 0.8rem;
+    }
+
+    .breadcrumb .cur {
+      color: var(--gold);
+    }
+
+    .page-hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--white);
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-hero h2 span {
+      color: var(--gold);
+    }
+
+    .page-hero p {
+      color: #a8bde0;
+      font-size: 0.93rem;
+      max-width: 500px;
+      line-height: 1.7;
+      position: relative;
+      z-index: 2;
+    }
 
     /* REGISTER SECTION */
-    .register-section { padding: 60px 40px 80px; display: flex; justify-content: center; }
-    .register-wrapper { width: 100%; max-width: 600px; }
+    .register-section {
+      padding: 60px 40px 80px;
+      display: flex;
+      justify-content: center;
+    }
 
-    .reg-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 40px 40px 36px; box-shadow: var(--shadow); }
+    .register-wrapper {
+      width: 100%;
+      max-width: 600px;
+    }
 
-    .reg-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-    .reg-icon { width: 46px; height: 46px; background: var(--navy); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; flex-shrink: 0; }
-    .reg-heading-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); }
-    .reg-heading-text p { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+    .reg-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 40px 40px 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .reg-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .reg-icon {
+      width: 46px;
+      height: 46px;
+      background: var(--navy);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .reg-heading-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+    }
+
+    .reg-heading-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
 
     /* STEPS */
-    .steps { display: flex; align-items: center; gap: 0; margin-bottom: 30px; }
-    .step { display: flex; align-items: center; gap: 8px; flex: 1; }
-    .step-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; border: 2px solid var(--border); background: var(--white); color: var(--text-muted); transition: all 0.3s; }
-    .step-circle.done { background: var(--gold); border-color: var(--gold); color: var(--navy); }
-    .step-circle.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
-    .step-label { font-size: 0.76rem; color: var(--text-muted); font-weight: 500; }
-    .step-label.active { color: var(--navy); font-weight: 600; }
-    .step-line { flex: 1; height: 2px; background: var(--border); margin: 0 8px; }
-    .step-line.done { background: var(--gold); }
+    .steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 30px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .step-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+      background: var(--white);
+      color: var(--text-muted);
+      transition: all 0.3s;
+    }
+
+    .step-circle.done {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+    }
+
+    .step-circle.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    .step-label {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .step-label.active {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .step-line {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      margin: 0 8px;
+    }
+
+    .step-line.done {
+      background: var(--gold);
+    }
 
     /* FORM SECTIONS */
-    .form-section { display: none; }
-    .form-section.active { display: block; }
+    .form-section {
+      display: none;
+    }
 
-    .section-title-sm { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 7px; }
-    .section-title-sm::after { content: ''; flex: 1; height: 1px; background: rgba(201,168,76,0.25); }
+    .form-section.active {
+      display: block;
+    }
 
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-grid .full { grid-column: 1 / -1; }
+    .section-title-sm {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
 
-    .form-group { margin-bottom: 4px; }
-    .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .form-group label span { color: #e53e3e; }
-    .input-wrap { position: relative; }
-    .input-wrap i.ico { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.83rem; pointer-events: none; }
+    .section-title-sm::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201, 168, 76, 0.25);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group {
+      margin-bottom: 4px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .form-group label span {
+      color: #e53e3e;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap i.ico {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.83rem;
+      pointer-events: none;
+    }
+
     .input-wrap input,
-    .input-wrap select { width: 100%; padding: 10px 12px 10px 36px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.87rem; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--offwhite); transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none; }
-    .input-wrap input:focus,
-    .input-wrap select:focus { border-color: var(--navy); background: var(--white); box-shadow: 0 0 0 3px rgba(10,31,68,0.08); }
-    .toggle-pass { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); font-size: 0.83rem; background: none; border: none; padding: 0; }
-    .toggle-pass:hover { color: var(--navy); }
+    .input-wrap select {
+      width: 100%;
+      padding: 10px 12px 10px 36px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.87rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--offwhite);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      appearance: none;
+    }
 
-    .hint { font-size: 0.74rem; color: var(--text-muted); margin-top: 4px; }
+    .input-wrap input:focus,
+    .input-wrap select:focus {
+      border-color: var(--navy);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(10, 31, 68, 0.08);
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.83rem;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .toggle-pass:hover {
+      color: var(--navy);
+    }
+
+    .hint {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
 
     /* PASSWORD STRENGTH */
-    .strength-bar { display: flex; gap: 4px; margin-top: 7px; }
-    .strength-seg { height: 4px; flex: 1; border-radius: 4px; background: var(--border); transition: background 0.3s; }
-    .strength-label { font-size: 0.73rem; color: var(--text-muted); margin-top: 4px; }
+    .strength-bar {
+      display: flex;
+      gap: 4px;
+      margin-top: 7px;
+    }
+
+    .strength-seg {
+      height: 4px;
+      flex: 1;
+      border-radius: 4px;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+
+    .strength-label {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
 
     /* TERMS */
-    .terms-wrap { display: flex; align-items: flex-start; gap: 10px; margin: 20px 0; }
-    .terms-wrap input[type="checkbox"] { accent-color: var(--navy); width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; }
-    .terms-wrap label { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
-    .terms-wrap label a { color: var(--navy); font-weight: 600; text-decoration: none; }
-    .terms-wrap label a:hover { color: var(--gold); }
+    .terms-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .terms-wrap input[type="checkbox"] {
+      accent-color: var(--navy);
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .terms-wrap label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .terms-wrap label a {
+      color: var(--navy);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .terms-wrap label a:hover {
+      color: var(--gold);
+    }
 
     /* BUTTONS */
-    .form-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
-    .btn-next { padding: 12px 28px; background: var(--navy); color: var(--white); border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.1s; }
-    .btn-next:hover { background: var(--navy-light); }
-    .btn-next:active { transform: scale(0.98); }
-    .btn-back { padding: 12px 22px; background: transparent; color: var(--text-muted); border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.9rem; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
-    .btn-back:hover { border-color: var(--navy); color: var(--navy); }
-    .btn-submit-reg { padding: 13px 28px; background: var(--gold); color: var(--navy); border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 700; font-family: 'DM Sans', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .btn-submit-reg:hover { background: var(--gold-light); }
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .btn-next {
+      padding: 12px 28px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-next:hover {
+      background: var(--navy-light);
+    }
+
+    .btn-next:active {
+      transform: scale(0.98);
+    }
+
+    .btn-back {
+      padding: 12px 22px;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-back:hover {
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+
+    .btn-submit-reg {
+      padding: 13px 28px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-submit-reg:hover {
+      background: var(--gold-light);
+    }
+
+    .btn-submit-reg:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ERROR ALERT */
+    .reg-alert {
+      display: none;
+      background: #fff5f5;
+      border: 1.5px solid #feb2b2;
+      border-radius: 8px;
+      padding: 11px 14px;
+      margin-bottom: 16px;
+      font-size: 0.83rem;
+      color: #c53030;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .reg-alert.show {
+      display: flex;
+    }
 
     /* SUCCESS */
-    .success-panel { display: none; text-align: center; padding: 20px 0 10px; }
-    .success-icon { width: 72px; height: 72px; background: rgba(22,163,74,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; color: #16a34a; }
-    .success-panel h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 10px; }
-    .success-panel p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; max-width: 380px; margin: 0 auto 24px; }
-    .success-panel .roll-box { background: var(--offwhite); border: 1.5px dashed var(--gold); border-radius: 8px; padding: 14px 20px; display: inline-block; margin-bottom: 24px; }
-    .success-panel .roll-box span { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); font-weight: 700; }
-    .btn-go-login { padding: 12px 28px; background: var(--navy); color: var(--white); border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+    .success-panel {
+      display: none;
+      text-align: center;
+      padding: 20px 0 10px;
+    }
 
-    .login-prompt { text-align: center; margin-top: 22px; font-size: 0.84rem; color: var(--text-muted); }
-    .login-prompt a { color: var(--navy); font-weight: 600; text-decoration: none; }
-    .login-prompt a:hover { color: var(--gold); }
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(22, 163, 74, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.8rem;
+      color: #16a34a;
+    }
+
+    .success-panel h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .success-panel p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 380px;
+      margin: 0 auto 24px;
+    }
+
+    .success-panel .roll-box {
+      background: var(--offwhite);
+      border: 1.5px dashed var(--gold);
+      border-radius: 8px;
+      padding: 14px 20px;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+
+    .success-panel .roll-box span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .btn-go-login {
+      padding: 12px 28px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-prompt {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .login-prompt a {
+      color: var(--navy);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .login-prompt a:hover {
+      color: var(--gold);
+    }
 
     /* FOOTER */
-    footer { background: #060f22; color: #8a9bc4; padding: 50px 40px 0; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: 36px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .footer-brand h3 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.05rem; margin-bottom: 10px; }
-    .footer-brand p { font-size: 0.8rem; line-height: 1.7; margin-bottom: 14px; }
-    .social-links { display: flex; gap: 9px; }
-    .social-links a { width: 32px; height: 32px; background: rgba(255,255,255,0.07); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8a9bc4; text-decoration: none; transition: all 0.2s; }
-    .social-links a:hover { background: var(--gold); color: var(--navy); }
-    .footer-col h4 { color: var(--white); font-size: 0.84rem; font-weight: 600; margin-bottom: 14px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .footer-col ul li a { color: #8a9bc4; text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
-    .footer-col ul li a:hover { color: var(--gold); }
-    .f-contact { display: flex; flex-direction: column; gap: 10px; }
-    .f-contact-item { display: flex; gap: 9px; align-items: flex-start; font-size: 0.8rem; }
-    .f-contact-item i { color: var(--gold); margin-top: 3px; font-size: 0.82rem; }
-    .footer-bottom { padding: 16px 0; text-align: center; font-size: 0.76rem; color: #4a5a7a; }
-    .footer-bottom span { color: var(--gold); }
+    footer {
+      background: #060f22;
+      color: #8a9bc4;
+      padding: 50px 40px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.4fr;
+      gap: 36px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand p {
+      font-size: 0.8rem;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 9px;
+    }
+
+    .social-links a {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8a9bc4;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .social-links a:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .footer-col h4 {
+      color: var(--white);
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col ul li a {
+      color: #8a9bc4;
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--gold);
+    }
+
+    .f-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .f-contact-item {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      font-size: 0.8rem;
+    }
+
+    .f-contact-item i {
+      color: var(--gold);
+      margin-top: 3px;
+      font-size: 0.82rem;
+    }
+
+    .footer-bottom {
+      padding: 16px 0;
+      text-align: center;
+      font-size: 0.76rem;
+      color: #4a5a7a;
+    }
+
+    .footer-bottom span {
+      color: var(--gold);
+    }
 
     @media (max-width: 640px) {
-      .topbar, header, nav, .page-hero, .register-section { padding-left: 16px; padding-right: 16px; }
-      .reg-card { padding: 24px 18px; }
-      .form-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
+
+      .topbar,
+      header,
+      nav,
+      .page-hero,
+      .register-section {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .reg-card {
+        padding: 24px 18px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<div class="topbar">
-  <div><span><i class="fas fa-phone-alt"></i> +91 361-000-0000</span><span style="margin-left:16px;"><i class="fas fa-envelope"></i> info@aei.ac.in</span></div>
-  <div><a href="#">Student Corner</a><a href="#">Webmail</a><span class="topbar-badge">AICTE Approved</span></div>
-</div>
+  <div class="topbar">
+    <div><span><i class="fas fa-phone-alt"></i> +91 361-000-0000</span><span style="margin-left:16px;"><i
+          class="fas fa-envelope"></i> info@aei.ac.in</span></div>
+    <div><a href="#">Student Corner</a><a href="#">Webmail</a><span class="topbar-badge">AICTE Approved</span></div>
+  </div>
 
-<header>
-  <div class="header-left">
-    <div class="logo-circle"><span>AEI</span></div>
-    <div class="college-info">
-      <h1>Assam Engineering Institute</h1>
-      <p>Est. 1948 &nbsp;|&nbsp; Affiliated to SCTE, Assam &nbsp;|&nbsp; Chandmari, Guwahati – 781003</p>
+  <header>
+    <div class="header-left">
+      <div class="logo-circle"><span>AEI</span></div>
+      <div class="college-info">
+        <h1>Assam Engineering Institute</h1>
+        <p>Est. 1948 &nbsp;|&nbsp; Affiliated to SCTE, Assam &nbsp;|&nbsp; Chandmari, Guwahati – 781003</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="admissions.html" class="btn-apply">Apply Now</a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="courses.html">Courses</a>
+    <a href="admissions.html">Admissions</a>
+    <a href="placement.html">Placement</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="page-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span class="sep">/</span>
+      <a href="login.html">Login</a><span class="sep">/</span>
+      <span class="cur">Register</span>
+    </div>
+    <h2>Student <span>Registration</span></h2>
+    <p>Create your AEI student portal account. Fill in your details to get access to attendance, results, and notices.
+    </p>
+  </div>
+
+  <div class="register-section">
+    <div class="register-wrapper">
+      <div class="reg-card">
+
+        <div class="reg-heading">
+          <div class="reg-icon"><i class="fas fa-user-graduate"></i></div>
+          <div class="reg-heading-text">
+            <h3>New Student Account</h3>
+            <p>Complete 3 simple steps to register</p>
+          </div>
+        </div>
+
+        <!-- ERROR ALERT -->
+        <div class="reg-alert" id="reg-alert">
+          <i class="fas fa-exclamation-circle"></i>
+          <span id="reg-alert-msg"></span>
+        </div>
+
+        <!-- STEP INDICATOR -->
+        <div class="steps" id="steps">
+          <div class="step">
+            <div class="step-circle active" id="sc1">1</div>
+            <div class="step-label active" id="sl1">Personal</div>
+          </div>
+          <div class="step-line" id="line1"></div>
+          <div class="step">
+            <div class="step-circle" id="sc2">2</div>
+            <div class="step-label" id="sl2">Academic</div>
+          </div>
+          <div class="step-line" id="line2"></div>
+          <div class="step">
+            <div class="step-circle" id="sc3">3</div>
+            <div class="step-label" id="sl3">Account</div>
+          </div>
+        </div>
+
+        <!-- STEP 1: PERSONAL INFO -->
+        <div class="form-section active" id="step1">
+          <div class="section-title-sm"><i class="fas fa-user"></i> Personal Information</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>First Name <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-user ico"></i>
+                <input type="text" id="firstName" placeholder="First name" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Last Name <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-user ico"></i>
+                <input type="text" id="lastName" placeholder="Last name" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Date of Birth <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-calendar ico"></i>
+                <input type="date" id="dob" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Gender <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-venus-mars ico"></i>
+                <select id="gender">
+                  <option value="">Select gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Mobile Number <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-mobile-alt ico"></i>
+                <input type="tel" id="mobile" placeholder="+91 XXXXX XXXXX" maxlength="13" />
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Email Address <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-envelope ico"></i>
+                <input type="email" id="email" placeholder="you@example.com" />
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Permanent Address</label>
+              <div class="input-wrap">
+                <i class="fas fa-map-marker-alt ico"></i>
+                <input type="text" id="address" placeholder="Village/Town, District, State" />
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <span></span>
+            <button class="btn-next" onclick="validateStep1()">Next <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- STEP 2: ACADEMIC INFO -->
+        <div class="form-section" id="step2">
+          <div class="section-title-sm"><i class="fas fa-graduation-cap"></i> Academic Information</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Department <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-building ico"></i>
+                <select id="department">
+                  <option value="">Select department</option>
+                  <option>Civil Engineering</option>
+                  <option>Electrical Engineering</option>
+                  <option>Mechanical Engineering</option>
+                  <option>Computer Engineering</option>
+                  <option>ETC Engineering</option>
+                  <option>Chemical Engineering</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Year of Admission <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-calendar-alt ico"></i>
+                <select id="admissionYear">
+                  <option value="">Select year</option>
+                  <option>2025</option>
+                  <option>2024</option>
+                  <option>2023</option>
+                  <option>2022</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Current Semester <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-layer-group ico"></i>
+                <select id="semester">
+                  <option value="">Select semester</option>
+                  <option>1st Semester</option>
+                  <option>2nd Semester</option>
+                  <option>3rd Semester</option>
+                  <option>4th Semester</option>
+                  <option>5th Semester</option>
+                  <option>6th Semester</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Admission Type <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-tag ico"></i>
+                <select id="admissionType">
+                  <option value="">Select type</option>
+                  <option>Regular</option>
+                  <option>Lateral Entry</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Roll Number <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-id-card ico"></i>
+                <input type="text" id="rollNo" placeholder="e.g. AEI/2025/CE/001" />
+              </div>
+              <p class="hint">Provided by the institute at time of admission.</p>
+            </div>
+            <div class="form-group full">
+              <label>HSLC / 10th Board Mark Sheet No.</label>
+              <div class="input-wrap">
+                <i class="fas fa-file-alt ico"></i>
+                <input type="text" id="markSheetNo" placeholder="Board mark sheet number" />
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-back" onclick="goStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="btn-next" onclick="validateStep2()">Next <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- STEP 3: ACCOUNT SETUP -->
+        <div class="form-section" id="step3">
+          <div class="section-title-sm"><i class="fas fa-lock"></i> Account Setup</div>
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>Create Username <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-at ico"></i>
+                <input type="text" placeholder="Choose a username" id="username" />
+              </div>
+              <p class="hint">Only letters, numbers and underscores. Min 5 characters.</p>
+            </div>
+            <div class="form-group full">
+              <label>Password <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-lock ico"></i>
+                <input type="password" id="reg-pass" placeholder="Create a strong password"
+                  oninput="checkStrength(this.value)" />
+                <button class="toggle-pass" onclick="togglePass('reg-pass', this)" tabindex="-1"><i
+                    class="fas fa-eye"></i></button>
+              </div>
+              <div class="strength-bar">
+                <div class="strength-seg" id="seg1"></div>
+                <div class="strength-seg" id="seg2"></div>
+                <div class="strength-seg" id="seg3"></div>
+                <div class="strength-seg" id="seg4"></div>
+              </div>
+              <p class="strength-label" id="strength-lbl">Min 8 characters, include a number and symbol.</p>
+            </div>
+            <div class="form-group full">
+              <label>Confirm Password <span>*</span></label>
+              <div class="input-wrap">
+                <i class="fas fa-lock ico"></i>
+                <input type="password" id="reg-pass2" placeholder="Re-enter your password" />
+                <button class="toggle-pass" onclick="togglePass('reg-pass2', this)" tabindex="-1"><i
+                    class="fas fa-eye"></i></button>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Security Question</label>
+              <div class="input-wrap">
+                <i class="fas fa-question-circle ico"></i>
+                <select id="secQuestion">
+                  <option value="">Select a security question</option>
+                  <option>What is your mother's maiden name?</option>
+                  <option>What was the name of your first school?</option>
+                  <option>What is your favourite subject?</option>
+                  <option>What is your pet's name?</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Answer</label>
+              <div class="input-wrap">
+                <i class="fas fa-comment-dots ico"></i>
+                <input type="text" id="secAnswer" placeholder="Your answer" />
+              </div>
+            </div>
+          </div>
+          <div class="terms-wrap">
+            <input type="checkbox" id="terms" />
+            <label for="terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a> of
+              Assam Engineering Institute. I confirm that all information provided is accurate.</label>
+          </div>
+          <div class="form-actions">
+            <button class="btn-back" onclick="goStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="btn-submit-reg" id="submit-btn" onclick="handleRegister()">
+              <i class="fas fa-check-circle" id="submit-ico"></i>
+              <span id="submit-spin" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+              Create Account
+            </button>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-panel" id="success-panel">
+          <div class="success-icon"><i class="fas fa-check"></i></div>
+          <h3>Registration Successful!</h3>
+          <p>Your student account has been created. Your roll number / login ID is shown below. Use your email and
+            password to login.</p>
+          <div class="roll-box"><span id="gen-roll"></span></div>
+          <a href="login.html" class="btn-go-login"><i class="fas fa-sign-in-alt"></i> Go to Login</a>
+        </div>
+
+      </div>
+
+      <div class="login-prompt">Already have an account? <a href="login.html">Login here</a></div>
     </div>
   </div>
-  <div class="header-right">
-    <a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
-    <a href="admissions.html" class="btn-apply">Apply Now</a>
-  </div>
-</header>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="courses.html">Courses</a>
-  <a href="admissions.html">Admissions</a>
-  <a href="placement.html">Placement</a>
-  <a href="contact.html">Contact</a>
-</nav>
-
-<div class="page-hero">
-  <div class="breadcrumb">
-    <a href="index.html">Home</a><span class="sep">/</span>
-    <a href="login.html">Login</a><span class="sep">/</span>
-    <span class="cur">Register</span>
-  </div>
-  <h2>Student <span>Registration</span></h2>
-  <p>Create your AEI student portal account. Fill in your details to get access to attendance, results, and notices.</p>
-</div>
-
-<div class="register-section">
-  <div class="register-wrapper">
-    <div class="reg-card">
-
-      <div class="reg-heading">
-        <div class="reg-icon"><i class="fas fa-user-graduate"></i></div>
-        <div class="reg-heading-text">
-          <h3>New Student Account</h3>
-          <p>Complete 3 simple steps to register</p>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Assam Engineering Institute</h3>
+        <p>A premier government technical institution of Assam, providing quality diploma engineering education since
+          1948. Affiliated to SCTE Assam and approved by AICTE.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
-
-      <!-- STEP INDICATOR -->
-      <div class="steps" id="steps">
-        <div class="step">
-          <div class="step-circle active" id="sc1">1</div>
-          <div class="step-label active" id="sl1">Personal</div>
-        </div>
-        <div class="step-line" id="line1"></div>
-        <div class="step">
-          <div class="step-circle" id="sc2">2</div>
-          <div class="step-label" id="sl2">Academic</div>
-        </div>
-        <div class="step-line" id="line2"></div>
-        <div class="step">
-          <div class="step-circle" id="sc3">3</div>
-          <div class="step-label" id="sl3">Account</div>
-        </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About AEI</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="placement.html">Placement</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
       </div>
-
-      <!-- STEP 1: PERSONAL INFO -->
-      <div class="form-section active" id="step1">
-        <div class="section-title-sm"><i class="fas fa-user"></i> Personal Information</div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>First Name <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-user ico"></i>
-              <input type="text" placeholder="First name" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Last Name <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-user ico"></i>
-              <input type="text" placeholder="Last name" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Date of Birth <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-calendar ico"></i>
-              <input type="date" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Gender <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-venus-mars ico"></i>
-              <select>
-                <option value="">Select gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group full">
-            <label>Mobile Number <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-mobile-alt ico"></i>
-              <input type="tel" placeholder="+91 XXXXX XXXXX" maxlength="13" />
-            </div>
-          </div>
-          <div class="form-group full">
-            <label>Email Address <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-envelope ico"></i>
-              <input type="email" placeholder="you@example.com" />
-            </div>
-          </div>
-          <div class="form-group full">
-            <label>Permanent Address</label>
-            <div class="input-wrap">
-              <i class="fas fa-map-marker-alt ico"></i>
-              <input type="text" placeholder="Village/Town, District, State" />
-            </div>
-          </div>
-        </div>
-        <div class="form-actions">
-          <span></span>
-          <button class="btn-next" onclick="goStep(2)">Next <i class="fas fa-arrow-right"></i></button>
-        </div>
+      <div class="footer-col">
+        <h4>Departments</h4>
+        <ul>
+          <li><a href="#">Civil Engineering</a></li>
+          <li><a href="#">Electrical Engineering</a></li>
+          <li><a href="#">Mechanical Engineering</a></li>
+          <li><a href="#">Computer Engineering</a></li>
+          <li><a href="#">ETC Engineering</a></li>
+          <li><a href="#">Chemical Engineering</a></li>
+        </ul>
       </div>
-
-      <!-- STEP 2: ACADEMIC INFO -->
-      <div class="form-section" id="step2">
-        <div class="section-title-sm"><i class="fas fa-graduation-cap"></i> Academic Information</div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Department <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-building ico"></i>
-              <select>
-                <option value="">Select department</option>
-                <option>Civil Engineering</option>
-                <option>Electrical Engineering</option>
-                <option>Mechanical Engineering</option>
-                <option>Computer Engineering</option>
-                <option>ETC Engineering</option>
-                <option>Chemical Engineering</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Year of Admission <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-calendar-alt ico"></i>
-              <select>
-                <option value="">Select year</option>
-                <option>2025</option>
-                <option>2024</option>
-                <option>2023</option>
-                <option>2022</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Current Semester <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-layer-group ico"></i>
-              <select>
-                <option value="">Select semester</option>
-                <option>1st Semester</option>
-                <option>2nd Semester</option>
-                <option>3rd Semester</option>
-                <option>4th Semester</option>
-                <option>5th Semester</option>
-                <option>6th Semester</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Admission Type <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-tag ico"></i>
-              <select>
-                <option value="">Select type</option>
-                <option>Regular</option>
-                <option>Lateral Entry</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group full">
-            <label>Roll Number <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-id-card ico"></i>
-              <input type="text" placeholder="e.g. AEI/2025/CE/001" />
-            </div>
-            <p class="hint">Provided by the institute at time of admission.</p>
-          </div>
-          <div class="form-group full">
-            <label>HSLC / 10th Board Mark Sheet No.</label>
-            <div class="input-wrap">
-              <i class="fas fa-file-alt ico"></i>
-              <input type="text" placeholder="Board mark sheet number" />
-            </div>
-          </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contact">
+          <div class="f-contact-item"><i class="fas fa-map-marker-alt"></i><span>M.D. Road, Chandmari, Guwahati, Assam –
+              781003</span></div>
+          <div class="f-contact-item"><i class="fas fa-phone-alt"></i><span>+91 361-000-0000</span></div>
+          <div class="f-contact-item"><i class="fas fa-envelope"></i><span>info@aei.ac.in</span></div>
+          <div class="f-contact-item"><i class="fas fa-clock"></i><span>Mon – Sat: 9:00 AM – 5:00 PM</span></div>
         </div>
-        <div class="form-actions">
-          <button class="btn-back" onclick="goStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
-          <button class="btn-next" onclick="goStep(3)">Next <i class="fas fa-arrow-right"></i></button>
-        </div>
-      </div>
-
-      <!-- STEP 3: ACCOUNT SETUP -->
-      <div class="form-section" id="step3">
-        <div class="section-title-sm"><i class="fas fa-lock"></i> Account Setup</div>
-        <div class="form-grid">
-          <div class="form-group full">
-            <label>Create Username <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-at ico"></i>
-              <input type="text" placeholder="Choose a username" id="username" />
-            </div>
-            <p class="hint">Only letters, numbers and underscores. Min 5 characters.</p>
-          </div>
-          <div class="form-group full">
-            <label>Password <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-lock ico"></i>
-              <input type="password" id="reg-pass" placeholder="Create a strong password" oninput="checkStrength(this.value)" />
-              <button class="toggle-pass" onclick="togglePass('reg-pass', this)" tabindex="-1"><i class="fas fa-eye"></i></button>
-            </div>
-            <div class="strength-bar">
-              <div class="strength-seg" id="seg1"></div>
-              <div class="strength-seg" id="seg2"></div>
-              <div class="strength-seg" id="seg3"></div>
-              <div class="strength-seg" id="seg4"></div>
-            </div>
-            <p class="strength-label" id="strength-lbl">Min 8 characters, include a number and symbol.</p>
-          </div>
-          <div class="form-group full">
-            <label>Confirm Password <span>*</span></label>
-            <div class="input-wrap">
-              <i class="fas fa-lock ico"></i>
-              <input type="password" id="reg-pass2" placeholder="Re-enter your password" />
-              <button class="toggle-pass" onclick="togglePass('reg-pass2', this)" tabindex="-1"><i class="fas fa-eye"></i></button>
-            </div>
-          </div>
-          <div class="form-group full">
-            <label>Security Question</label>
-            <div class="input-wrap">
-              <i class="fas fa-question-circle ico"></i>
-              <select>
-                <option value="">Select a security question</option>
-                <option>What is your mother's maiden name?</option>
-                <option>What was the name of your first school?</option>
-                <option>What is your favourite subject?</option>
-                <option>What is your pet's name?</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group full">
-            <label>Answer</label>
-            <div class="input-wrap">
-              <i class="fas fa-comment-dots ico"></i>
-              <input type="text" placeholder="Your answer" />
-            </div>
-          </div>
-        </div>
-        <div class="terms-wrap">
-          <input type="checkbox" id="terms" />
-          <label for="terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a> of Assam Engineering Institute. I confirm that all information provided is accurate.</label>
-        </div>
-        <div class="form-actions">
-          <button class="btn-back" onclick="goStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
-          <button class="btn-submit-reg" onclick="handleRegister()"><i class="fas fa-check-circle"></i> Create Account</button>
-        </div>
-      </div>
-
-      <!-- SUCCESS -->
-      <div class="success-panel" id="success-panel">
-        <div class="success-icon"><i class="fas fa-check"></i></div>
-        <h3>Registration Successful!</h3>
-        <p>Your student account has been created. Your temporary roll number / login ID is shown below. Please save it.</p>
-        <div class="roll-box"><span id="gen-roll">AEI/2025/CE/042</span></div>
-        <a href="login.html" class="btn-go-login"><i class="fas fa-sign-in-alt"></i> Go to Login</a>
-      </div>
-
-    </div>
-
-    <div class="login-prompt">Already have an account? <a href="login.html">Login here</a></div>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <h3>Assam Engineering Institute</h3>
-      <p>A premier government technical institution of Assam, providing quality diploma engineering education since 1948. Affiliated to SCTE Assam and approved by AICTE.</p>
-      <div class="social-links">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
       </div>
     </div>
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About AEI</a></li>
-        <li><a href="courses.html">Courses</a></li>
-        <li><a href="admissions.html">Admissions</a></li>
-        <li><a href="placement.html">Placement</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Departments</h4>
-      <ul>
-        <li><a href="#">Civil Engineering</a></li>
-        <li><a href="#">Electrical Engineering</a></li>
-        <li><a href="#">Mechanical Engineering</a></li>
-        <li><a href="#">Computer Engineering</a></li>
-        <li><a href="#">ETC Engineering</a></li>
-        <li><a href="#">Chemical Engineering</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact Us</h4>
-      <div class="f-contact">
-        <div class="f-contact-item"><i class="fas fa-map-marker-alt"></i><span>M.D. Road, Chandmari, Guwahati, Assam – 781003</span></div>
-        <div class="f-contact-item"><i class="fas fa-phone-alt"></i><span>+91 361-000-0000</span></div>
-        <div class="f-contact-item"><i class="fas fa-envelope"></i><span>info@aei.ac.in</span></div>
-        <div class="f-contact-item"><i class="fas fa-clock"></i><span>Mon – Sat: 9:00 AM – 5:00 PM</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">© 2025 Assam Engineering Institute. All rights reserved. | Designed as a <span>Final Year Project</span></div>
-</footer>
+    <div class="footer-bottom">© 2025 Assam Engineering Institute. All rights reserved. | Designed as a <span>Final Year
+        Project</span></div>
+  </footer>
 
-<script>
-  let currentStep = 1;
+  <!-- ===== NON-MODULE HELPERS (step nav, UI) ===== -->
+  <script>
+    let currentStep = 1;
 
-  function goStep(n) {
-    document.getElementById('step' + currentStep).classList.remove('active');
-    // update step indicators
-    for (let i = 1; i <= 3; i++) {
-      const sc = document.getElementById('sc' + i);
-      const sl = document.getElementById('sl' + i);
-      sc.classList.remove('active', 'done');
-      sl.classList.remove('active');
-      if (i < n) { sc.classList.add('done'); sc.innerHTML = '<i class="fas fa-check" style="font-size:0.65rem;"></i>'; }
-      else if (i === n) { sc.classList.add('active'); sc.textContent = i; sl.classList.add('active'); }
-      else { sc.textContent = i; }
-      if (i < 3) {
-        const line = document.getElementById('line' + i);
-        line.classList.toggle('done', i < n);
+    function showAlert(msg) {
+      const el = document.getElementById('reg-alert');
+      document.getElementById('reg-alert-msg').textContent = msg;
+      el.classList.add('show');
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      setTimeout(() => el.classList.remove('show'), 5000);
+    }
+
+    function goStep(n) {
+      document.getElementById('step' + currentStep).classList.remove('active');
+      for (let i = 1; i <= 3; i++) {
+        const sc = document.getElementById('sc' + i);
+        const sl = document.getElementById('sl' + i);
+        sc.classList.remove('active', 'done');
+        sl.classList.remove('active');
+        if (i < n) { sc.classList.add('done'); sc.innerHTML = '<i class="fas fa-check" style="font-size:0.65rem;"></i>'; }
+        else if (i === n) { sc.classList.add('active'); sc.textContent = i; sl.classList.add('active'); }
+        else { sc.textContent = i; }
+        if (i < 3) {
+          document.getElementById('line' + i).classList.toggle('done', i < n);
+        }
       }
+      currentStep = n;
+      document.getElementById('step' + n).classList.add('active');
     }
-    currentStep = n;
-    document.getElementById('step' + n).classList.add('active');
-  }
 
-  function togglePass(id, btn) {
-    const inp = document.getElementById(id);
-    const icon = btn.querySelector('i');
-    if (inp.type === 'password') { inp.type = 'text'; icon.className = 'fas fa-eye-slash'; }
-    else { inp.type = 'password'; icon.className = 'fas fa-eye'; }
-  }
-
-  function checkStrength(val) {
-    let score = 0;
-    if (val.length >= 8) score++;
-    if (/[A-Z]/.test(val)) score++;
-    if (/[0-9]/.test(val)) score++;
-    if (/[^A-Za-z0-9]/.test(val)) score++;
-    const colors = ['', '#e53e3e', '#f6ad55', '#68d391', '#38a169'];
-    const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
-    for (let i = 1; i <= 4; i++) {
-      document.getElementById('seg' + i).style.background = i <= score ? colors[score] : 'var(--border)';
+    function togglePass(id, btn) {
+      const inp = document.getElementById(id);
+      const icon = btn.querySelector('i');
+      if (inp.type === 'password') { inp.type = 'text'; icon.className = 'fas fa-eye-slash'; }
+      else { inp.type = 'password'; icon.className = 'fas fa-eye'; }
     }
-    document.getElementById('strength-lbl').textContent = val.length ? 'Password strength: ' + (labels[score] || 'Too short') : 'Min 8 characters, include a number and symbol.';
-    document.getElementById('strength-lbl').style.color = val.length ? colors[score] : 'var(--text-muted)';
-  }
 
-  function handleRegister() {
-    const terms = document.getElementById('terms');
-    if (!terms.checked) { alert('Please accept the Terms & Conditions to continue.'); return; }
-    // hide steps, show success
-    document.getElementById('step3').classList.remove('active');
-    document.getElementById('steps').style.display = 'none';
-    document.querySelector('.reg-heading').style.display = 'none';
-    document.getElementById('success-panel').style.display = 'block';
-  }
-</script>
+    function checkStrength(val) {
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+      const colors = ['', '#e53e3e', '#f6ad55', '#68d391', '#38a169'];
+      const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById('seg' + i).style.background = i <= score ? colors[score] : 'var(--border)';
+      }
+      document.getElementById('strength-lbl').textContent = val.length ? 'Password strength: ' + (labels[score] || 'Too short') : 'Min 8 characters, include a number and symbol.';
+      document.getElementById('strength-lbl').style.color = val.length ? colors[score] : 'var(--text-muted)';
+    }
+
+    function validateStep1() {
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const dob = document.getElementById('dob').value;
+      const gender = document.getElementById('gender').value;
+      const mobile = document.getElementById('mobile').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if (!firstName) { showAlert('Please enter your first name.'); return; }
+      if (!lastName) { showAlert('Please enter your last name.'); return; }
+      if (!dob) { showAlert('Please select your date of birth.'); return; }
+      if (!gender) { showAlert('Please select your gender.'); return; }
+      if (!mobile) { showAlert('Please enter your mobile number.'); return; }
+      if (!email) { showAlert('Please enter your email address.'); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showAlert('Please enter a valid email address.'); return; }
+      goStep(2);
+    }
+
+    function validateStep2() {
+      const department = document.getElementById('department').value;
+      const admissionYear = document.getElementById('admissionYear').value;
+      const semester = document.getElementById('semester').value;
+      const admissionType = document.getElementById('admissionType').value;
+      const rollNo = document.getElementById('rollNo').value.trim();
+      if (!department) { showAlert('Please select your department.'); return; }
+      if (!admissionYear) { showAlert('Please select your year of admission.'); return; }
+      if (!semester) { showAlert('Please select your current semester.'); return; }
+      if (!admissionType) { showAlert('Please select your admission type.'); return; }
+      if (!rollNo) { showAlert('Please enter your roll number.'); return; }
+      goStep(3);
+    }
+  </script>
+
+  <!-- ===== FIREBASE MODULE (registration logic) ===== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const app = initializeApp({
+      apiKey: "AIzaSyAvDe8YoaWF4fkz77qH96WgM4EnADcQZ7s",
+      authDomain: "aei-project-45c7d.firebaseapp.com",
+      projectId: "aei-project-45c7d",
+      storageBucket: "aei-project-45c7d.firebasestorage.app",
+      messagingSenderId: "836915665584",
+      appId: "1:836915665584:web:58553eb01efb2b18717975"
+    });
+
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const firebaseErrors = {
+      'auth/email-already-in-use': 'This email is already registered. Please login instead.',
+      'auth/invalid-email': 'Please enter a valid email address.',
+      'auth/weak-password': 'Password is too weak. Use at least 6 characters.',
+      'auth/network-request-failed': 'Network error. Please check your internet connection.',
+    };
+
+    function setLoading(on) {
+      document.getElementById('submit-btn').disabled = on;
+      document.getElementById('submit-ico').style.display = on ? 'none' : 'inline';
+      document.getElementById('submit-spin').style.display = on ? 'inline' : 'none';
+    }
+
+    // Expose to global scope so the onclick in HTML can call it
+    window.handleRegister = async function () {
+      const terms = document.getElementById('terms');
+      if (!terms.checked) { window.showAlert('Please accept the Terms & Conditions to continue.'); return; }
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('reg-pass').value;
+      const confirm = document.getElementById('reg-pass2').value;
+      const username = document.getElementById('username').value.trim();
+
+      // Validate account fields
+      if (!username || username.length < 5) {
+        window.showAlert('Username must be at least 5 characters.'); return;
+      }
+      if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+        window.showAlert('Username can only contain letters, numbers and underscores.'); return;
+      }
+      if (!password || password.length < 8) {
+        window.showAlert('Password must be at least 8 characters.'); return;
+      }
+      if (password !== confirm) {
+        window.showAlert('Passwords do not match. Please re-enter.'); return;
+      }
+
+      setLoading(true);
+
+      try {
+        // 1. Create user in Firebase Auth
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+        // 2. Save full profile to Firestore under "users" collection
+        await setDoc(doc(db, "users", cred.user.uid), {
+          uid: cred.user.uid,
+          role: "student",
+          username: username,
+          email: email,
+          firstName: document.getElementById('firstName').value.trim(),
+          lastName: document.getElementById('lastName').value.trim(),
+          dob: document.getElementById('dob').value,
+          gender: document.getElementById('gender').value,
+          mobile: document.getElementById('mobile').value.trim(),
+          address: document.getElementById('address').value.trim(),
+          department: document.getElementById('department').value,
+          admissionYear: document.getElementById('admissionYear').value,
+          semester: document.getElementById('semester').value,
+          admissionType: document.getElementById('admissionType').value,
+          rollNo: document.getElementById('rollNo').value.trim(),
+          markSheetNo: document.getElementById('markSheetNo').value.trim(),
+          secQuestion: document.getElementById('secQuestion').value,
+          secAnswer: document.getElementById('secAnswer').value.trim(),
+          createdAt: serverTimestamp()
+        });
+
+        // 3. Show success
+        document.getElementById('gen-roll').textContent = document.getElementById('rollNo').value.trim();
+        document.getElementById('step3').classList.remove('active');
+        document.getElementById('steps').style.display = 'none';
+        document.querySelector('.reg-heading').style.display = 'none';
+        document.getElementById('reg-alert').classList.remove('show');
+        document.getElementById('success-panel').style.display = 'block';
+
+      } catch (e) {
+        setLoading(false);
+        window.showAlert(firebaseErrors[e.code] || 'Registration failed: ' + e.message);
+      }
+    };
+  </script>
+
 </body>
+
 </html>
