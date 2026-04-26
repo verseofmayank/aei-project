@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard – Assam Engineering Institute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --navy: #0a1f44; --navy-light: #122558; --gold: #c9a84c; --gold-light: #e8c96d;
+      --white: #ffffff; --offwhite: #f7f8fc; --text: #2d2d2d; --text-muted: #6b7280;
+      --border: #e5e7eb; --shadow: 0 4px 24px rgba(10,31,68,0.10); --radius: 12px;
+      --green: #16a34a; --red: #dc2626; --amber: #d97706;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--offwhite); overflow-x: hidden; }
+
+    /* TOPBAR */
+    .topbar { background: var(--navy); color: #ccd6f0; font-size: 0.78rem; padding: 7px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .topbar a { color: var(--gold-light); text-decoration: none; margin-left: 16px; }
+    .topbar-badge { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+
+    /* HEADER */
+    header { background: var(--white); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 12px rgba(10,31,68,0.08); }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .logo-circle { width: 58px; height: 58px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid var(--gold); flex-shrink: 0; }
+    .logo-circle span { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+    .college-info h1 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--navy); }
+    .college-info p { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
+    .header-right { display: flex; align-items: center; gap: 14px; }
+    .notif-btn { position: relative; background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 1.1rem; padding: 4px; }
+    .notif-dot { position: absolute; top: 0; right: 0; width: 8px; height: 8px; background: var(--red); border-radius: 50%; border: 2px solid var(--white); }
+    .user-pill { display: flex; align-items: center; gap: 9px; background: var(--offwhite); border: 1px solid var(--border); border-radius: 30px; padding: 6px 14px 6px 6px; cursor: pointer; }
+    .user-avatar { width: 30px; height: 30px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 0.75rem; font-weight: 700; }
+    .user-pill span { font-size: 0.83rem; font-weight: 500; color: var(--text); }
+    .btn-logout { background: none; border: 1.5px solid var(--border); color: var(--text-muted); padding: 7px 16px; border-radius: 6px; font-size: 0.82rem; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+    .btn-logout:hover { border-color: var(--red); color: var(--red); }
+
+    /* LAYOUT */
+    .dash-layout { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 120px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 28px 0; position: sticky; top: 83px; height: calc(100vh - 83px); overflow-y: auto; }
+    .sidebar-profile { text-align: center; padding: 0 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 16px; }
+    .profile-avatar { width: 68px; height: 68px; background: rgba(201,168,76,0.15); border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; }
+    .sidebar-profile h3 { color: var(--white); font-size: 0.92rem; font-weight: 600; }
+    .sidebar-profile p { color: #a8bde0; font-size: 0.74rem; margin-top: 3px; }
+    .sidebar-badge { display: inline-block; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-size: 0.68rem; font-weight: 600; padding: 2px 10px; border-radius: 10px; margin-top: 7px; }
+
+    .sidebar-menu { padding: 0 12px; }
+    .menu-label { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; color: #4a5a7a; text-transform: uppercase; padding: 14px 12px 6px; }
+    .menu-item { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 8px; color: #a8bde0; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s; margin-bottom: 2px; text-decoration: none; }
+    .menu-item i { width: 18px; text-align: center; font-size: 0.88rem; }
+    .menu-item:hover { background: rgba(255,255,255,0.07); color: var(--white); }
+    .menu-item.active { background: rgba(201,168,76,0.12); color: var(--gold); border-left: 3px solid var(--gold); padding-left: 9px; }
+    .menu-item .badge { margin-left: auto; background: var(--red); color: var(--white); font-size: 0.64rem; font-weight: 700; padding: 1px 6px; border-radius: 8px; }
+
+    /* MAIN */
+    .main-content { padding: 30px 36px; }
+
+    /* WELCOME BAR */
+    .welcome-bar { background: linear-gradient(120deg, var(--navy) 0%, #1a3a7a 100%); border-radius: var(--radius); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; position: relative; overflow: hidden; }
+    .welcome-bar::before { content: ''; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%); }
+    .welcome-bar h2 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.4rem; }
+    .welcome-bar h2 span { color: var(--gold); }
+    .welcome-bar p { color: #a8bde0; font-size: 0.84rem; margin-top: 5px; }
+    .welcome-date { color: #a8bde0; font-size: 0.8rem; text-align: right; }
+    .welcome-date strong { display: block; font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--gold); }
+
+    /* STAT CARDS */
+    .stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    .stat-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 22px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .stat-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .stat-card.green::after { background: var(--green); }
+    .stat-card.red::after { background: var(--red); }
+    .stat-card.blue::after { background: #2563eb; }
+    .stat-card.amber::after { background: var(--amber); }
+    .stat-card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; margin-bottom: 14px; }
+    .stat-card.green .stat-card-icon { background: rgba(22,163,74,0.1); color: var(--green); }
+    .stat-card.red .stat-card-icon { background: rgba(220,38,38,0.1); color: var(--red); }
+    .stat-card.blue .stat-card-icon { background: rgba(37,99,235,0.1); color: #2563eb; }
+    .stat-card.amber .stat-card-icon { background: rgba(217,119,6,0.1); color: var(--amber); }
+    .stat-card h4 { font-size: 0.76rem; color: var(--text-muted); font-weight: 500; margin-bottom: 5px; }
+    .stat-card .num { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--text); }
+    .stat-card .sub { font-size: 0.74rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* GRID ROW */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 22px; }
+    .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 22px; margin-bottom: 22px; }
+
+    /* CARDS */
+    .card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
+    .card-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .card-head h3 { font-size: 0.92rem; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+    .card-head h3 i { color: var(--gold); }
+    .card-head a { font-size: 0.78rem; color: var(--navy); text-decoration: none; font-weight: 500; }
+    .card-head a:hover { color: var(--gold); }
+    .card-body { padding: 18px 20px; }
+
+    /* ATTENDANCE */
+    .attend-overall { display: flex; align-items: center; gap: 20px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+    .attend-circle { position: relative; width: 80px; height: 80px; flex-shrink: 0; }
+    .attend-circle svg { transform: rotate(-90deg); }
+    .attend-circle .pct { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+    .attend-info h4 { font-size: 0.84rem; font-weight: 600; color: var(--text); }
+    .attend-info p { font-size: 0.78rem; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
+    .attend-status { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 10px; margin-top: 6px; }
+    .attend-status.good { background: rgba(22,163,74,0.1); color: var(--green); }
+    .attend-status.warn { background: rgba(217,119,6,0.1); color: var(--amber); }
+    .attend-status.bad { background: rgba(220,38,38,0.1); color: var(--red); }
+
+    .subject-attend { display: flex; flex-direction: column; gap: 10px; }
+    .subj-row { display: flex; align-items: center; gap: 10px; }
+    .subj-name { font-size: 0.8rem; color: var(--text); width: 140px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .subj-bar-wrap { flex: 1; height: 7px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .subj-bar { height: 100%; border-radius: 4px; transition: width 0.8s ease; }
+    .subj-pct { font-size: 0.76rem; font-weight: 600; width: 36px; text-align: right; }
+
+    /* RESULT */
+    .result-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .result-table th { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 10px; border-bottom: 1.5px solid var(--border); text-align: left; }
+    .result-table td { padding: 10px 10px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+    .result-table tr:last-child td { border-bottom: none; }
+    .grade-badge { display: inline-block; padding: 2px 10px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; }
+    .grade-A { background: rgba(22,163,74,0.1); color: var(--green); }
+    .grade-B { background: rgba(37,99,235,0.1); color: #2563eb; }
+    .grade-C { background: rgba(217,119,6,0.1); color: var(--amber); }
+    .grade-F { background: rgba(220,38,38,0.1); color: var(--red); }
+    .result-summary { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .result-sum-item { text-align: center; }
+    .result-sum-item .val { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); }
+    .result-sum-item .lbl { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* NOTICES */
+    .notice-list { display: flex; flex-direction: column; gap: 0; }
+    .notice-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: flex-start; cursor: pointer; transition: background 0.15s; border-radius: 6px; padding-left: 6px; }
+    .notice-item:last-child { border-bottom: none; }
+    .notice-item:hover { background: var(--offwhite); }
+    .notice-tag { flex-shrink: 0; padding: 3px 9px; border-radius: 5px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; }
+    .tag-exam { background: rgba(220,38,38,0.1); color: var(--red); }
+    .tag-event { background: rgba(37,99,235,0.1); color: #2563eb; }
+    .tag-general { background: rgba(217,119,6,0.1); color: var(--amber); }
+    .tag-placement { background: rgba(22,163,74,0.1); color: var(--green); }
+    .notice-text { font-size: 0.82rem; color: var(--text); line-height: 1.5; flex: 1; }
+    .notice-date { font-size: 0.72rem; color: var(--text-muted); flex-shrink: 0; margin-top: 1px; }
+
+    /* TIMETABLE */
+    .timetable { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .timetable th { background: var(--navy); color: var(--gold); font-size: 0.7rem; font-weight: 600; padding: 9px 10px; text-align: center; }
+    .timetable td { padding: 8px 10px; border: 1px solid var(--border); text-align: center; font-size: 0.78rem; vertical-align: middle; }
+    .timetable tr:nth-child(even) td { background: var(--offwhite); }
+    .timetable .today-col { background: rgba(201,168,76,0.08) !important; border-left: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+    .sub-pill { display: inline-block; background: rgba(10,31,68,0.07); color: var(--navy); padding: 2px 8px; border-radius: 5px; font-size: 0.72rem; font-weight: 500; }
+    .break-cell { color: var(--text-muted); font-size: 0.72rem; font-style: italic; }
+
+    /* QUICK ACTIONS */
+    .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .qa-btn { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 9px; border: 1.5px solid var(--border); background: var(--offwhite); cursor: pointer; transition: all 0.2s; text-decoration: none; color: var(--text); }
+    .qa-btn:hover { border-color: var(--navy); background: var(--white); box-shadow: var(--shadow); }
+    .qa-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+    .qa-btn .qa-text { font-size: 0.8rem; font-weight: 500; }
+
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 2000; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--white); border-radius: var(--radius); padding: 28px; width: 90%; max-width: 460px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .modal-head h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); }
+    .modal-close { background: none; border: none; font-size: 1.1rem; color: var(--text-muted); cursor: pointer; }
+    .modal-body p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
+    .modal-body .m-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 600; padding: 3px 12px; border-radius: 10px; margin-bottom: 12px; }
+
+    /* NOTIFICATION PANEL */
+    .notif-panel { display: none; position: fixed; top: 80px; right: 40px; width: 320px; background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: 0 12px 40px rgba(0,0,0,0.15); z-index: 1500; }
+    .notif-panel.open { display: block; }
+    .notif-panel-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .notif-panel-head h4 { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+    .notif-panel-head span { font-size: 0.74rem; color: var(--text-muted); cursor: pointer; }
+    .notif-list { max-height: 300px; overflow-y: auto; }
+    .notif-entry { padding: 12px 18px; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
+    .notif-entry:last-child { border-bottom: none; }
+    .notif-entry.unread { background: rgba(10,31,68,0.03); }
+    .notif-dot2 { width: 8px; height: 8px; background: var(--navy); border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .notif-entry p { font-size: 0.8rem; color: var(--text); line-height: 1.5; }
+    .notif-entry small { font-size: 0.71rem; color: var(--text-muted); margin-top: 3px; display: block; }
+
+    /* FOOTER */
+    .dash-footer { background: var(--navy); color: #a8bde0; padding: 16px 40px; text-align: center; font-size: 0.78rem; }
+    .dash-footer span { color: var(--gold); }
+
+    @media (max-width: 1024px) {
+      .dash-layout { grid-template-columns: 200px 1fr; }
+      .stat-cards { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; }
+      .main-content { padding: 20px 16px; }
+      .grid-2, .grid-3-1 { grid-template-columns: 1fr; }
+      .topbar, header { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div><span><i class="fas fa-phone-alt"></i> +91 361-000-0000</span><span style="margin-left:16px;"><i class="fas fa-envelope"></i> info@aei.ac.in</span></div>
+  <div><a href="#">Student Corner</a><a href="#">Webmail</a><span class="topbar-badge">AICTE Approved</span></div>
+</div>
+
+<header>
+  <div class="header-left">
+    <div class="logo-circle"><span>AEI</span></div>
+    <div class="college-info">
+      <h1>Assam Engineering Institute</h1>
+      <p>Est. 1948 &nbsp;|&nbsp; Student Portal &nbsp;|&nbsp; 3rd Semester – Computer Engineering</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="notif-btn" onclick="toggleNotif()" id="notif-btn">
+      <i class="fas fa-bell"></i>
+      <span class="notif-dot" id="notif-dot"></span>
+    </button>
+    <div class="user-pill">
+      <div class="user-avatar"></div>
+      <span>abhay yadav </span>
+    </div>
+    <button class="btn-logout" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </div>
+</header>
+
+<!-- NOTIFICATION PANEL -->
+<div class="notif-panel" id="notif-panel">
+  <div class="notif-panel-head">
+    <h4>Notifications</h4>
+    <span onclick="markAllRead()">Mark all read</span>
+  </div>
+  <div class="notif-list" id="notif-list"></div>
+</div>
+
+<div class="dash-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-profile">
+      <div class="profile-avatar">AY</div>
+      <h3>abhay yadav</h3>
+      <p>AEI/2023/CE/042</p>
+      <div class="sidebar-badge">5th  Sem CE</div>
+    </div>
+    <div class="sidebar-menu">
+      <div class="menu-label">Main</div>
+      <a class="menu-item active" onclick="showSection('overview', this)" href="#"><i class="fas fa-th-large"></i> Overview</a>
+      <a class="menu-item" onclick="showSection('attendance', this)" href="#"><i class="fas fa-calendar-check"></i> Attendance</a>
+      <a class="menu-item" onclick="showSection('results', this)" href="#"><i class="fas fa-chart-line"></i> Results</a>
+      <a class="menu-item" onclick="showSection('notices', this)" href="#"><i class="fas fa-bullhorn"></i> Notices <span class="badge" id="notice-badge">3</span></a>
+      <a class="menu-item" onclick="showSection('timetable', this)" href="#"><i class="fas fa-clock"></i> Timetable</a>
+      <div class="menu-label">Account</div>
+      <a class="menu-item" onclick="showSection('profile', this)" href="#"><i class="fas fa-user-circle"></i> My Profile</a>
+      <a class="menu-item" href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- OVERVIEW -->
+    <div id="sec-overview">
+      <div class="welcome-bar">
+        <div>
+          <h2>Welcome back, <span>abhay</span> 👋</h2>
+          <p>Here's your academic summary for this semester.</p>
+        </div>
+        <div class="welcome-date">
+          <span id="dash-date"></span>
+          <strong id="dash-time"></strong>
+        </div>
+      </div>
+
+      <div class="stat-cards">
+        <div class="stat-card green">
+          <div class="stat-card-icon"><i class="fas fa-calendar-check"></i></div>
+          <h4>Overall Attendance</h4>
+          <div class="num" id="att-overall-num">78%</div>
+          <div class="sub">Classes attended</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-card-icon"><i class="fas fa-star"></i></div>
+          <h4>Current SGPA</h4>
+          <div class="num">7.8</div>
+          <div class="sub">3rd Semester</div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-card-icon"><i class="fas fa-bullhorn"></i></div>
+          <h4>Unread Notices</h4>
+          <div class="num" id="unread-count">3</div>
+          <div class="sub">Since last visit</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+          <h4>Low Attendance</h4>
+          <div class="num">2</div>
+          <div class="sub">Subjects below 75%</div>
+        </div>
+      </div>
+
+      <div class="grid-3-1">
+        <!-- ATTENDANCE CARD -->
+        <div class="card">
+          <div class="card-head">
+            <h3><i class="fas fa-calendar-check"></i> Attendance Summary</h3>
+            <a href="#" onclick="showSection('attendance', document.querySelector('[onclick*=attendance]'))">View all</a>
+          </div>
+          <div class="card-body">
+            <div class="attend-overall">
+              <div class="attend-circle">
+                <svg width="80" height="80" viewBox="0 0 80 80">
+                  <circle cx="40" cy="40" r="33" fill="none" stroke="#e5e7eb" stroke-width="7"/>
+                  <circle cx="40" cy="40" r="33" fill="none" stroke="#16a34a" stroke-width="7" stroke-dasharray="207.3" stroke-dashoffset="45.6" stroke-linecap="round"/>
+                </svg>
+                <div class="pct">78%</div>
+              </div>
+              <div class="attend-info">
+                <h4>Overall Attendance</h4>
+                <p>117 of 150 classes attended this semester.</p>
+                <span class="attend-status good"><i class="fas fa-check-circle"></i> Above minimum (75%)</span>
+              </div>
+            </div>
+            <div class="subject-attend" id="subj-attend-list"></div>
+          </div>
+        </div>
+        <!-- NOTICES MINI -->
+        <div class="card">
+          <div class="card-head">
+            <h3><i class="fas fa-bullhorn"></i> Notices</h3>
+            <a href="#" onclick="showSection('notices', document.querySelector('[onclick*=notices]'))">All</a>
+          </div>
+          <div class="card-body" style="padding:10px 14px;">
+            <div class="notice-list" id="mini-notice-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- RESULT MINI -->
+        <div class="card">
+          <div class="card-head">
+            <h3><i class="fas fa-chart-line"></i> Latest Results</h3>
+            <a href="#" onclick="showSection('results', document.querySelector('[onclick*=results]'))">View all</a>
+          </div>
+          <div class="card-body">
+            <table class="result-table" id="mini-result-table"></table>
+            <div class="result-summary">
+              <div class="result-sum-item"><div class="val">7.8</div><div class="lbl">SGPA</div></div>
+              <div class="result-sum-item"><div class="val">78%</div><div class="lbl">Percentage</div></div>
+              <div class="result-sum-item"><div class="val">B+</div><div class="lbl">Grade</div></div>
+            </div>
+          </div>
+        </div>
+        <!-- QUICK ACTIONS -->
+        <div class="card">
+          <div class="card-head"><h3><i class="fas fa-bolt"></i> Quick Actions</h3></div>
+          <div class="card-body">
+            <div class="quick-actions">
+              <a href="#" class="qa-btn" onclick="showSection('timetable', document.querySelector('[onclick*=timetable]'))">
+                <div class="qa-icon" style="background:rgba(10,31,68,0.08);color:var(--navy);"><i class="fas fa-clock"></i></div>
+                <span class="qa-text">View Timetable</span>
+              </a>
+              <a href="#" class="qa-btn" onclick="showSection('results', document.querySelector('[onclick*=results]'))">
+                <div class="qa-icon" style="background:rgba(37,99,235,0.1);color:#2563eb;"><i class="fas fa-file-alt"></i></div>
+                <span class="qa-text">Download Result</span>
+              </a>
+              <a href="#" class="qa-btn" onclick="showSection('attendance', document.querySelector('[onclick*=attendance]'))">
+                <div class="qa-icon" style="background:rgba(22,163,74,0.1);color:var(--green);"><i class="fas fa-calendar-alt"></i></div>
+                <span class="qa-text">Attendance Detail</span>
+              </a>
+              <a href="#" class="qa-btn" onclick="showSection('profile', document.querySelector('[onclick*=profile]'))">
+                <div class="qa-icon" style="background:rgba(201,168,76,0.12);color:var(--gold);"><i class="fas fa-user-edit"></i></div>
+                <span class="qa-text">Edit Profile</span>
+              </a>
+              <a href="#" class="qa-btn">
+                <div class="qa-icon" style="background:rgba(220,38,38,0.1);color:var(--red);"><i class="fas fa-id-card"></i></div>
+                <span class="qa-text">ID Card</span>
+              </a>
+              <a href="#" class="qa-btn">
+                <div class="qa-icon" style="background:rgba(217,119,6,0.1);color:var(--amber);"><i class="fas fa-print"></i></div>
+                <span class="qa-text">Fee Receipt</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATTENDANCE FULL -->
+    <div id="sec-attendance" style="display:none;">
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:22px;">Attendance <span style="color:var(--gold);">Details</span></h2>
+      <div class="card">
+        <div class="card-head"><h3><i class="fas fa-calendar-check"></i> Subject-wise Attendance</h3></div>
+        <div class="card-body" id="full-attend-body"></div>
+      </div>
+    </div>
+
+    <!-- RESULTS FULL -->
+    <div id="sec-results" style="display:none;">
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:22px;">Academic <span style="color:var(--gold);">Results</span></h2>
+      <div class="card">
+        <div class="card-head">
+          <h3><i class="fas fa-chart-line"></i> 3rd Semester Result</h3>
+          <button onclick="printResult()" style="background:var(--navy);color:var(--white);border:none;padding:7px 16px;border-radius:6px;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;"><i class="fas fa-download"></i> Download</button>
+        </div>
+        <div class="card-body" id="full-result-body"></div>
+      </div>
+    </div>
+
+    <!-- NOTICES FULL -->
+    <div id="sec-notices" style="display:none;">
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:22px;">Notice <span style="color:var(--gold);">Board</span></h2>
+      <div class="card">
+        <div class="card-head"><h3><i class="fas fa-bullhorn"></i> All Notices</h3></div>
+        <div class="card-body" id="full-notice-body"></div>
+      </div>
+    </div>
+
+    <!-- TIMETABLE -->
+    <div id="sec-timetable" style="display:none;">
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:22px;">Class <span style="color:var(--gold);">Timetable</span></h2>
+      <div class="card" style="overflow-x:auto;">
+        <div class="card-head"><h3><i class="fas fa-clock"></i> 3rd Semester – Computer Engineering</h3></div>
+        <div class="card-body" style="padding:0;overflow-x:auto;" id="timetable-body"></div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div id="sec-profile" style="display:none;">
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:22px;">My <span style="color:var(--gold);">Profile</span></h2>
+      <div class="card">
+        <div class="card-body" id="profile-body"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- NOTICE MODAL -->
+<div class="modal-overlay" id="notice-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modal-title">Notice Title</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- LOGOUT MODAL -->
+<div class="modal-overlay" id="logout-modal">
+  <div class="modal" style="max-width:360px;">
+    <div class="modal-head">
+      <h3>Confirm Logout</h3>
+      <button class="modal-close" onclick="document.getElementById('logout-modal').classList.remove('open')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to logout from the student portal?</p>
+      <div style="display:flex;gap:10px;margin-top:20px;">
+        <button onclick="document.getElementById('logout-modal').classList.remove('open')" style="flex:1;padding:10px;border:1.5px solid var(--border);background:transparent;border-radius:7px;font-size:0.88rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Cancel</button>
+        <button onclick="window.location.href='login.html'" style="flex:1;padding:10px;background:var(--red);color:var(--white);border:none;border-radius:7px;font-size:0.88rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dash-footer">© 2025 Assam Engineering Institute &nbsp;|&nbsp; Student Portal &nbsp;|&nbsp; Designed as a <span>Final Year Project</span></div>
+
+<script>
+/* ---- DATA ---- */
+const subjects = [
+  { name: 'Data Structures', code: 'CS301', present: 22, total: 26, teacher: 'Mr. D. Gogoi' },
+  { name: 'Computer Networks', code: 'CS302', present: 20, total: 26, teacher: 'Mrs. P. Das' },
+  { name: 'DBMS', code: 'CS303', present: 24, total: 26, teacher: 'Mr. A. Sharma' },
+  { name: 'Maths III', code: 'MA301', present: 18, total: 26, teacher: 'Mrs. R. Borah' },
+  { name: 'OS Concepts', code: 'CS304', present: 19, total: 26, teacher: 'Mr. K. Nath' },
+  { name: 'Workshop', code: 'WS301', present: 14, total: 18, teacher: 'Mr. S. Kalita' },
+];
+
+const results = [
+  { sub: 'Data Structures', code: 'CS301', internal: 28, external: 58, total: 86, grade: 'A' },
+  { sub: 'Computer Networks', code: 'CS302', internal: 24, external: 50, total: 74, grade: 'B' },
+  { sub: 'DBMS', code: 'CS303', internal: 30, external: 60, total: 90, grade: 'A' },
+  { sub: 'Maths III', code: 'MA301', internal: 22, external: 44, total: 66, grade: 'C' },
+  { sub: 'OS Concepts', code: 'CS304', internal: 25, external: 52, total: 77, grade: 'B' },
+  { sub: 'Workshop', code: 'WS301', internal: 18, external: 38, total: 56, grade: 'B' },
+];
+
+const notices = [
+  { id: 1, title: 'End Semester Examination Schedule', tag: 'exam', date: '20 Apr 2025', body: 'The End Semester Examination for 3rd Semester will commence from 10th May 2025. Students are advised to collect their admit cards from the examination section from 5th May onwards. All dues must be cleared before collecting the admit card.', unread: true },
+  { id: 2, title: 'Campus Recruitment Drive – L&T & ONGC', tag: 'placement', date: '18 Apr 2025', body: 'L&T and ONGC will be conducting a joint campus recruitment drive on 20th June 2025. Final semester students with 60% or above aggregate marks are eligible. Register at the placement cell before 10th May 2025.', unread: true },
+  { id: 3, title: 'Annual Cultural Fest – TechVibe 2025', tag: 'event', date: '15 Apr 2025', body: 'AEI Annual Cultural and Technical Fest "TechVibe 2025" will be held on 2nd and 3rd May 2025. Students are invited to participate in various technical and cultural events. Registration open at the student affairs office.', unread: true },
+  { id: 4, title: 'Library Fine Waiver Notice', tag: 'general', date: '10 Apr 2025', body: 'The institute library has announced a one-time fine waiver for all overdue books returned before 30th April 2025. Students are requested to return pending books at the earliest.', unread: false },
+  { id: 5, title: 'Holiday Notice – Bohag Bihu', tag: 'general', date: '8 Apr 2025', body: 'The institute will remain closed from 14th to 16th April 2025 on account of Bohag Bihu festival. Classes will resume on 17th April 2025. Students are advised to plan accordingly.', unread: false },
+];
+
+const notifications = [
+  { text: 'Exam schedule has been published. Check notices.', time: '2 hrs ago', unread: true },
+  { text: 'Your attendance in Maths III has fallen below 75%.', time: '5 hrs ago', unread: true },
+  { text: 'Campus placement drive registration is open.', time: '1 day ago', unread: true },
+  { text: 'TechVibe 2025 registrations are now open.', time: '2 days ago', unread: false },
+  { text: 'Your 2nd semester result has been published.', time: '1 week ago', unread: false },
+];
+
+const timetableData = {
+  days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  slots: ['9:00–10:00', '10:00–11:00', '11:00–12:00', '12:00–1:00', '1:00–2:00', '2:00–3:00', '3:00–4:00'],
+  grid: [
+    ['DS','CN','DBMS','Break','Math','OS','—'],
+    ['Math','DS','Workshop','Break','CN','DBMS','—'],
+    ['OS','Math','DS','Break','Workshop','CN','—'],
+    ['CN','DBMS','Math','Break','DS','Workshop','—'],
+    ['DBMS','OS','CN','Break','DS','Math','—'],
+    ['Workshop','—','—','—','—','—','—'],
+  ]
+};
+
+/* ---- INIT ---- */
+window.addEventListener('DOMContentLoaded', () => {
+  updateClock();
+  setInterval(updateClock, 1000);
+  renderSubjectAttendance();
+  renderMiniNotices();
+  renderMiniResults();
+  renderNotifPanel();
+  renderFullAttendance();
+  renderFullResults();
+  renderFullNotices();
+  renderTimetable();
+  renderProfile();
+});
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('dash-date').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  document.getElementById('dash-time').textContent = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+}
+
+/* ---- ATTENDANCE ---- */
+function barColor(pct) {
+  if (pct >= 75) return '#16a34a';
+  if (pct >= 60) return '#d97706';
+  return '#dc2626';
+}
+function renderSubjectAttendance() {
+  const el = document.getElementById('subj-attend-list');
+  el.innerHTML = subjects.map(s => {
+    const pct = Math.round((s.present / s.total) * 100);
+    return `<div class="subj-row">
+      <span class="subj-name" title="${s.name}">${s.name}</span>
+      <div class="subj-bar-wrap"><div class="subj-bar" style="width:${pct}%;background:${barColor(pct)};"></div></div>
+      <span class="subj-pct" style="color:${barColor(pct)};">${pct}%</span>
+    </div>`;
+  }).join('');
+}
+function renderFullAttendance() {
+  const el = document.getElementById('full-attend-body');
+  el.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+    <thead><tr>
+      <th style="text-align:left;padding:10px;border-bottom:2px solid var(--border);font-size:0.74rem;color:var(--text-muted);text-transform:uppercase;">Subject</th>
+      <th style="padding:10px;border-bottom:2px solid var(--border);font-size:0.74rem;color:var(--text-muted);text-transform:uppercase;">Classes Held</th>
+      <th style="padding:10px;border-bottom:2px solid var(--border);font-size:0.74rem;color:var(--text-muted);text-transform:uppercase;">Attended</th>
+      <th style="padding:10px;border-bottom:2px solid var(--border);font-size:0.74rem;color:var(--text-muted);text-transform:uppercase;">%</th>
+      <th style="padding:10px;border-bottom:2px solid var(--border);font-size:0.74rem;color:var(--text-muted);text-transform:uppercase;">Status</th>
+      <th style="text-align:left;padding:10px;border-bottom:2px solid var(--border);font-size:0.74rem;color:var(--text-muted);text-transform:uppercase;">Faculty</th>
+    </tr></thead>
+    <tbody>${subjects.map(s => {
+      const pct = Math.round((s.present / s.total) * 100);
+      const status = pct >= 75 ? '<span class="attend-status good"><i class="fas fa-check"></i> OK</span>' : '<span class="attend-status bad"><i class="fas fa-exclamation"></i> Low</span>';
+      return `<tr>
+        <td style="padding:11px 10px;border-bottom:1px solid var(--border);font-weight:500;">${s.name} <span style="font-size:0.72rem;color:var(--text-muted);">(${s.code})</span></td>
+        <td style="padding:11px 10px;border-bottom:1px solid var(--border);text-align:center;">${s.total}</td>
+        <td style="padding:11px 10px;border-bottom:1px solid var(--border);text-align:center;">${s.present}</td>
+        <td style="padding:11px 10px;border-bottom:1px solid var(--border);text-align:center;font-weight:700;color:${barColor(pct)};">${pct}%</td>
+        <td style="padding:11px 10px;border-bottom:1px solid var(--border);text-align:center;">${status}</td>
+        <td style="padding:11px 10px;border-bottom:1px solid var(--border);">${s.teacher}</td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table>`;
+}
+
+/* ---- RESULTS ---- */
+function renderMiniResults() {
+  const el = document.getElementById('mini-result-table');
+  el.innerHTML = `<thead><tr>
+    <th>Subject</th><th>Marks</th><th>Grade</th>
+  </tr></thead><tbody>${results.slice(0,4).map(r => `<tr>
+    <td>${r.sub}</td>
+    <td>${r.total}/100</td>
+    <td><span class="grade-badge grade-${r.grade}">${r.grade}</span></td>
+  </tr>`).join('')}</tbody>`;
+}
+function renderFullResults() {
+  const el = document.getElementById('full-result-body');
+  el.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:0.85rem;" class="result-table">
+    <thead><tr>
+      <th>Subject</th><th>Code</th><th>Internal (30)</th><th>External (70)</th><th>Total (100)</th><th>Grade</th>
+    </tr></thead>
+    <tbody>${results.map(r => `<tr>
+      <td style="font-weight:500;">${r.sub}</td>
+      <td style="color:var(--text-muted);">${r.code}</td>
+      <td style="text-align:center;">${r.internal}</td>
+      <td style="text-align:center;">${r.external}</td>
+      <td style="text-align:center;font-weight:700;">${r.total}</td>
+      <td style="text-align:center;"><span class="grade-badge grade-${r.grade}">${r.grade}</span></td>
+    </tr>`).join('')}</tbody>
+  </table>
+  <div class="result-summary" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+    <div class="result-sum-item"><div class="val">7.8</div><div class="lbl">SGPA</div></div>
+    <div class="result-sum-item"><div class="val">78.2%</div><div class="lbl">Percentage</div></div>
+    <div class="result-sum-item"><div class="val">B+</div><div class="lbl">Grade</div></div>
+    <div class="result-sum-item"><div class="val">Pass</div><div class="lbl">Status</div></div>
+  </div>`;
+}
+
+/* ---- NOTICES ---- */
+const tagColors = { exam:'tag-exam', placement:'tag-placement', event:'tag-event', general:'tag-general' };
+function renderMiniNotices() {
+  const el = document.getElementById('mini-notice-list');
+  el.innerHTML = notices.slice(0,4).map(n => `
+    <div class="notice-item" onclick="openNotice(${n.id})">
+      <span class="notice-tag ${tagColors[n.tag]}">${n.tag}</span>
+      <span class="notice-text">${n.title}${n.unread ? ' <span style="display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;margin-left:4px;vertical-align:middle;"></span>' : ''}</span>
+      <span class="notice-date">${n.date}</span>
+    </div>`).join('');
+}
+function renderFullNotices() {
+  const el = document.getElementById('full-notice-body');
+  el.innerHTML = notices.map(n => `
+    <div class="notice-item" onclick="openNotice(${n.id})" style="padding:14px 8px;">
+      <span class="notice-tag ${tagColors[n.tag]}">${n.tag}</span>
+      <span class="notice-text"><strong>${n.title}</strong>${n.unread ? ' <span style="display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;margin-left:4px;vertical-align:middle;"></span>' : ''}<br><span style="color:var(--text-muted);font-size:0.78rem;">${n.body.slice(0,90)}…</span></span>
+      <span class="notice-date">${n.date}</span>
+    </div>`).join('');
+}
+function openNotice(id) {
+  const n = notices.find(x => x.id === id);
+  if (!n) return;
+  n.unread = false;
+  updateUnreadCount();
+  document.getElementById('modal-title').textContent = n.title;
+  document.getElementById('modal-body').innerHTML = `
+    <span class="m-tag ${tagColors[n.tag]}" style="background:var(--offwhite);padding:3px 12px;border-radius:10px;font-size:0.75rem;font-weight:600;display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;color:var(--text-muted);">
+      <i class="fas fa-tag"></i> ${n.tag.toUpperCase()} &nbsp;·&nbsp; ${n.date}
+    </span>
+    <p>${n.body}</p>`;
+  document.getElementById('notice-modal').classList.add('open');
+}
+function closeModal() { document.getElementById('notice-modal').classList.remove('open'); }
+function updateUnreadCount() {
+  const c = notices.filter(n => n.unread).length;
+  document.getElementById('unread-count').textContent = c;
+  document.getElementById('notice-badge').textContent = c;
+  renderMiniNotices(); renderFullNotices();
+}
+
+/* ---- NOTIFICATIONS ---- */
+function renderNotifPanel() {
+  const el = document.getElementById('notif-list');
+  el.innerHTML = notifications.map((n, i) => `
+    <div class="notif-entry ${n.unread ? 'unread' : ''}">
+      ${n.unread ? '<div class="notif-dot2"></div>' : '<div style="width:8px;flex-shrink:0;"></div>'}
+      <div><p>${n.text}</p><small>${n.time}</small></div>
+    </div>`).join('');
+}
+function toggleNotif() {
+  document.getElementById('notif-panel').classList.toggle('open');
+}
+function markAllRead() {
+  notifications.forEach(n => n.unread = false);
+  document.getElementById('notif-dot').style.display = 'none';
+  renderNotifPanel();
+}
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('notif-panel');
+  const btn = document.getElementById('notif-btn');
+  if (!panel.contains(e.target) && !btn.contains(e.target)) panel.classList.remove('open');
+});
+
+/* ---- TIMETABLE ---- */
+function renderTimetable() {
+  const todayIdx = (new Date().getDay() + 6) % 7; // Mon=0
+  let html = `<table class="timetable" style="width:100%;min-width:700px;">
+    <thead><tr><th>Time</th>${timetableData.days.map((d, i) => `<th${i===todayIdx?' style="background:#1a3a7a;color:var(--gold-light);"':''}>${d}</th>`).join('')}</tr></thead>
+    <tbody>`;
+  timetableData.slots.forEach((slot, si) => {
+    html += `<tr><td style="font-weight:600;color:var(--navy);font-size:0.74rem;white-space:nowrap;">${slot}</td>`;
+    timetableData.days.forEach((_, di) => {
+      const cell = timetableData.grid[di][si];
+      const today = di === todayIdx;
+      if (cell === 'Break') html += `<td class="${today?'today-col':''} break-cell">Lunch</td>`;
+      else if (cell === '—') html += `<td class="${today?'today-col':''}">—</td>`;
+      else html += `<td class="${today?'today-col':''}"><span class="sub-pill">${cell}</span></td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('timetable-body').innerHTML = html;
+}
+
+/* ---- PROFILE ---- */
+function renderProfile() {
+  document.getElementById('profile-body').innerHTML = `
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;">
+      <div style="text-align:center;">
+        <div style="width:90px;height:90px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;border:3px solid var(--gold);margin:0 auto 10px;">RB</div>
+        <button style="font-size:0.76rem;background:var(--offwhite);border:1px solid var(--border);border-radius:6px;padding:5px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--text-muted);">Change Photo</button>
+      </div>
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:4px;">abhay yadav</h3>
+        <p style="color:var(--text-muted);font-size:0.84rem;margin-bottom:18px;">AEI/2023/CE/042 &nbsp;·&nbsp; 3rd Semester · Computer Engineering</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;font-size:0.85rem;">
+          ${[
+            ['Roll No.','AEI/2023/CE/042'],['Department','Computer Engineering'],
+            ['Semester','3rd Semester'],['Year of Admission','2023'],
+            ['Date of Birth','12 Mar 2005'],['Gender','Male'],
+            ['Mobile','+91 94350 XXXXX'],['Email','abhay.yadav@aei.ac.in'],
+            ['Address','Guwahati, Assam – 781001'],['Guardian','Mr. B. Barua'],
+          ].map(([k,v]) => `<div><span style="color:var(--text-muted);font-size:0.76rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">${k}</span><p style="margin-top:2px;font-weight:500;color:var(--text);">${v}</p></div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ---- PRINT ---- */
+function printResult() { window.print(); }
+
+/* ---- NAV ---- */
+const sections = ['overview','attendance','results','notices','timetable','profile'];
+function showSection(name, el) {
+  sections.forEach(s => {
+    const sec = document.getElementById('sec-' + s);
+    if (sec) sec.style.display = s === name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+  if (el) el.classList.add('active');
+  return false;
+}
+
+/* ---- LOGOUT ---- */
+function confirmLogout() { document.getElementById('logout-modal').classList.add('open'); }
+</script>
+</body>
+</html>

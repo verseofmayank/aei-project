@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admissions – Assam Engineering Institute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root{--navy:#0a1f44;--navy-light:#122558;--gold:#c9a84c;--gold-light:#e8c96d;--white:#ffffff;--offwhite:#f7f8fc;--text:#2d2d2d;--text-muted:#6b7280;--border:#e5e7eb;--shadow:0 4px 24px rgba(10,31,68,0.10);--radius:12px;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);}
+    .topbar{background:var(--navy);color:#ccd6f0;font-size:.78rem;padding:7px 40px;display:flex;justify-content:space-between;align-items:center;}
+    .topbar a{color:var(--gold-light);text-decoration:none;margin-left:16px;}
+    header{background:var(--white);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:1000;box-shadow:0 2px 12px rgba(10,31,68,.08);}
+    .header-left{display:flex;align-items:center;gap:16px;}
+    .logo-circle{width:58px;height:58px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid var(--gold);flex-shrink:0;}
+    .logo-circle span{color:var(--gold);font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;}
+    .college-info h1{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--navy);}
+    .college-info p{font-size:.76rem;color:var(--text-muted);margin-top:2px;}
+    .header-right{display:flex;gap:10px;}
+    .btn-login{background:var(--navy);color:var(--white);padding:8px 20px;border-radius:6px;text-decoration:none;font-size:.84rem;font-weight:500;}
+    .btn-apply{background:var(--gold);color:var(--navy);padding:8px 20px;border-radius:6px;text-decoration:none;font-size:.84rem;font-weight:600;}
+    nav{background:var(--navy);padding:0 40px;display:flex;}
+    nav a{color:#c8d4ec;text-decoration:none;font-size:.87rem;font-weight:500;padding:13px 16px;display:block;position:relative;transition:color .2s;}
+    nav a:hover,nav a.active{color:var(--gold);}
+    nav a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);}
+
+    .page-hero{background:linear-gradient(120deg,var(--navy) 0%,#1a3a7a 100%);padding:56px 40px;text-align:center;}
+    .page-hero .badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);font-size:.74rem;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:14px;letter-spacing:.08em;}
+    .page-hero h2{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--white);margin-bottom:10px;}
+    .page-hero p{color:#a8bde0;font-size:.95rem;}
+
+    .section{padding:56px 40px;}
+    .section-label{font-size:.74rem;font-weight:600;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;}
+    .section-title{font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--navy);margin-bottom:10px;}
+    .section-sub{color:var(--text-muted);font-size:.92rem;line-height:1.7;margin-bottom:32px;}
+
+    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-bottom:40px;}
+    .info-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);border-top:4px solid var(--gold);}
+    .info-card i{font-size:1.6rem;color:var(--gold);margin-bottom:14px;}
+    .info-card h3{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);margin-bottom:8px;}
+    .info-card p{font-size:.85rem;color:var(--text-muted);line-height:1.6;}
+
+    .steps{counter-reset:step;display:flex;flex-direction:column;gap:16px;max-width:700px;}
+    .step{display:flex;gap:20px;align-items:flex-start;background:var(--offwhite);border-radius:var(--radius);padding:20px 24px;}
+    .step-num{background:var(--navy);color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .step-body h4{font-weight:600;color:var(--navy);margin-bottom:4px;}
+    .step-body p{font-size:.85rem;color:var(--text-muted);}
+
+    .coming-soon{background:linear-gradient(135deg,var(--offwhite),#eef2ff);border:2px dashed var(--gold);border-radius:var(--radius);padding:40px;text-align:center;margin-top:32px;}
+    .coming-soon i{font-size:2.5rem;color:var(--gold);margin-bottom:14px;}
+    .coming-soon h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:8px;}
+    .coming-soon p{color:var(--text-muted);font-size:.9rem;}
+
+    .eligibility-table{width:100%;border-collapse:collapse;margin-top:16px;}
+    .eligibility-table th{background:var(--navy);color:var(--gold);padding:12px 16px;text-align:left;font-size:.84rem;}
+    .eligibility-table td{padding:12px 16px;font-size:.84rem;border-bottom:1px solid var(--border);color:var(--text);}
+    .eligibility-table tr:nth-child(even) td{background:var(--offwhite);}
+
+    footer{background:var(--navy);color:#a0b0cc;padding:32px 40px;text-align:center;font-size:.82rem;}
+    footer strong{color:var(--gold);}
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <span><i class="fas fa-phone" style="margin-right:6px"></i>+91-361-000-0000 &nbsp;|&nbsp; <i class="fas fa-envelope" style="margin-right:6px"></i>info@aei.ac.in</span>
+  <span><a href="login.html">Student Portal</a><a href="login.html">Admin Login</a></span>
+</div>
+<header>
+  <div class="header-left">
+    <div class="logo-circle"><span>AEI</span></div>
+    <div class="college-info">
+      <h1>Assam Engineering Institute</h1>
+      <p>Autonomous | Estd. 1955 | Guwahati, Assam</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="login.html" class="btn-login">Login</a>
+    <a href="admissions.html" class="btn-apply">Apply Now</a>
+  </div>
+</header>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="courses.html">Courses</a>
+  <a href="admissions.html" class="active">Admissions</a>
+  <a href="placement.html">Placement</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="page-hero">
+  <div class="badge">ADMISSIONS 2025–26</div>
+  <h2>Join Assam Engineering Institute</h2>
+  <p>Shape your future with quality technical education since 1955</p>
+</div>
+
+<div class="section">
+  <div class="section-label">Overview</div>
+  <div class="section-title">Admission at a Glance</div>
+  <div class="section-sub">AEI offers undergraduate engineering programs across multiple disciplines. Admissions are merit-based through state-level entrance examinations.</div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <i class="fas fa-calendar-alt"></i>
+      <h3>Academic Session</h3>
+      <p>July 2025 – April 2026. Classes commence first week of August.</p>
+    </div>
+    <div class="info-card">
+      <i class="fas fa-users"></i>
+      <h3>Total Intake</h3>
+      <p>Approx. 480 seats across all departments (subject to approval).</p>
+    </div>
+    <div class="info-card">
+      <i class="fas fa-clipboard-check"></i>
+      <h3>Entrance Exam</h3>
+      <p>Admission through SEBA & AHSEC merit / JEE Main score for lateral entry.</p>
+    </div>
+    <div class="info-card">
+      <i class="fas fa-hand-holding-usd"></i>
+      <h3>Fee Structure</h3>
+      <p>Tuition fees as per Assam Govt. norms. Scholarship schemes available.</p>
+    </div>
+  </div>
+
+  <div class="section-label">Eligibility</div>
+  <div class="section-title" style="margin-bottom:16px;">Basic Eligibility Criteria</div>
+  <table class="eligibility-table">
+    <thead><tr><th>Program</th><th>Qualification</th><th>Min. Marks</th><th>Age Limit</th></tr></thead>
+    <tbody>
+      <tr><td>B.E. (All Branches)</td><td>Class 12 – Science (PCM)</td><td>45% (40% for SC/ST)</td><td>17–25 years</td></tr>
+      <tr><td>Lateral Entry (B.E. 2nd yr)</td><td>Diploma in Engineering</td><td>45%</td><td>No limit</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section" style="background:var(--offwhite);padding-top:48px;">
+  <div class="section-label">Process</div>
+  <div class="section-title">How to Apply</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Online Registration</h4><p>Fill the application form on the official admission portal with valid credentials.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Document Upload</h4><p>Upload Marksheet, ID proof, category certificate (if applicable), and passport photo.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Merit List & Counselling</h4><p>Merit list published on the website. Attend counselling on allotted date.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Fee Payment & Enrolment</h4><p>Pay fees online/offline and collect admit card from the admission office.</p></div></div>
+  </div>
+
+  <div class="coming-soon">
+    <i class="fas fa-clock"></i>
+    <h3>Detailed Admission Brochure Coming Soon</h3>
+    <p>Full schedule, fee structure, reservation policy, and hostel details will be published before May 2025. Check back or contact the admission office.</p>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 <strong>Assam Engineering Institute</strong>. All rights reserved.</p>
+</footer>
+</body>
+</html>

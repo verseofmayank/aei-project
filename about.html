@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About – Assam Engineering Institute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --navy: #0a1f44; --navy-light: #122558; --gold: #c9a84c; --gold-light: #e8c96d;
+      --white: #ffffff; --offwhite: #f7f8fc; --text: #2d2d2d; --text-muted: #6b7280;
+      --border: #e5e7eb; --shadow: 0 4px 24px rgba(10,31,68,0.10); --radius: 12px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+    .topbar { background: var(--navy); color: #ccd6f0; font-size: 0.78rem; padding: 7px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .topbar a { color: var(--gold-light); text-decoration: none; margin-left: 16px; }
+    .topbar-badge { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+
+    header { background: var(--white); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 12px rgba(10,31,68,0.08); }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .logo-circle { width: 58px; height: 58px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid var(--gold); flex-shrink: 0; }
+    .logo-circle span { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+    .college-info h1 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--navy); }
+    .college-info p { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
+    .header-right { display: flex; gap: 10px; }
+    .btn-login { background: var(--navy); color: var(--white); padding: 8px 20px; border-radius: 6px; text-decoration: none; font-size: 0.84rem; font-weight: 500; }
+    .btn-apply { background: var(--gold); color: var(--navy); padding: 8px 20px; border-radius: 6px; text-decoration: none; font-size: 0.84rem; font-weight: 600; }
+
+    nav { background: var(--navy); padding: 0 40px; display: flex; }
+    nav a { color: #c8d4ec; text-decoration: none; font-size: 0.87rem; font-weight: 500; padding: 13px 16px; display: block; position: relative; transition: color 0.2s; }
+    nav a:hover, nav a.active { color: var(--gold); }
+    nav a.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--gold); }
+
+    .page-hero { background: linear-gradient(120deg, var(--navy) 0%, #1a3a7a 100%); padding: 56px 40px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%); }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .breadcrumb a { color: #a8bde0; text-decoration: none; font-size: 0.8rem; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep, .breadcrumb .cur { color: #a8bde0; font-size: 0.8rem; }
+    .breadcrumb .cur { color: var(--gold); }
+    .page-hero h2 { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--white); margin-bottom: 10px; position: relative; z-index: 2; }
+    .page-hero h2 span { color: var(--gold); }
+    .page-hero p { color: #a8bde0; font-size: 0.97rem; max-width: 540px; line-height: 1.7; position: relative; z-index: 2; }
+
+    .stats-bar { background: var(--navy); display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 3px solid var(--gold); }
+    .stat-item { padding: 26px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.07); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--gold); font-weight: 700; }
+    .stat-label { font-size: 0.74rem; color: #a8bde0; margin-top: 5px; }
+
+    section { padding: 64px 40px; }
+    .section-label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--navy); margin-bottom: 12px; }
+
+    /* ABOUT GRID */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .about-img { background: linear-gradient(135deg, var(--navy), #1a3a7a); height: 340px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; color: var(--gold); font-size: 4.5rem; border: 3px solid rgba(201,168,76,0.3); position: relative; }
+    .about-img p { font-size: 0.82rem; color: #a8bde0; font-family: 'DM Sans', sans-serif; }
+    .year-badge { position: absolute; bottom: 18px; right: 18px; background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.8rem; padding: 7px 14px; border-radius: 7px; text-align: center; }
+    .about-text p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.8; margin-bottom: 14px; }
+    .about-points { list-style: none; margin: 16px 0; display: flex; flex-direction: column; gap: 10px; }
+    .about-points li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--text); }
+    .about-points li i { color: var(--gold); margin-top: 3px; }
+
+    /* VISION MISSION */
+    .vm-section { background: var(--offwhite); }
+    .vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .vm-card { border-radius: var(--radius); padding: 34px 30px; }
+    .vm-card.vision { background: var(--navy); }
+    .vm-card.mission { background: var(--white); border: 2px solid var(--border); }
+    .vm-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 16px; }
+    .vision .vm-icon { background: rgba(201,168,76,0.15); color: var(--gold); }
+    .mission .vm-icon { background: rgba(10,31,68,0.07); color: var(--navy); }
+    .vm-card h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; margin-bottom: 12px; }
+    .vision h3 { color: var(--white); }
+    .mission h3 { color: var(--navy); }
+    .vm-card p { font-size: 0.88rem; line-height: 1.8; }
+    .vision p { color: #a8bde0; }
+    .mission p { color: var(--text-muted); }
+    .vm-list { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 9px; }
+    .vm-list li { display: flex; gap: 9px; align-items: flex-start; font-size: 0.84rem; }
+    .vision .vm-list li { color: #c8d4ec; }
+    .mission .vm-list li { color: var(--text-muted); }
+    .vision .vm-list li i { color: var(--gold); margin-top: 3px; }
+    .mission .vm-list li i { color: var(--navy); margin-top: 3px; }
+
+    /* ACCREDITATION */
+    .accred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .accred-card { background: var(--white); border: 2px solid var(--border); border-radius: var(--radius); padding: 22px 24px; display: flex; align-items: center; gap: 14px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .accred-card:hover { border-color: var(--gold); box-shadow: var(--shadow); }
+    .accred-icon { width: 46px; height: 46px; background: var(--navy); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.2rem; flex-shrink: 0; }
+    .accred-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .accred-card p { font-size: 0.74rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* FOOTER */
+    footer { background: #060f22; color: #8a9bc4; padding: 50px 40px 0; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: 36px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand h3 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.05rem; margin-bottom: 10px; }
+    .footer-brand p { font-size: 0.8rem; line-height: 1.7; margin-bottom: 14px; }
+    .social-links { display: flex; gap: 9px; }
+    .social-links a { width: 32px; height: 32px; background: rgba(255,255,255,0.07); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8a9bc4; text-decoration: none; transition: all 0.2s; }
+    .social-links a:hover { background: var(--gold); color: var(--navy); }
+    .footer-col h4 { color: var(--white); font-size: 0.84rem; font-weight: 600; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a { color: #8a9bc4; text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .f-contact { display: flex; flex-direction: column; gap: 10px; }
+    .f-contact-item { display: flex; gap: 9px; align-items: flex-start; font-size: 0.8rem; }
+    .f-contact-item i { color: var(--gold); margin-top: 3px; font-size: 0.82rem; }
+    .footer-bottom { padding: 16px 0; text-align: center; font-size: 0.76rem; color: #4a5a7a; }
+    .footer-bottom span { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .topbar, header, nav, section, .vm-section, .ticker-wrap { padding-left: 20px; padding-right: 20px; }
+      .page-hero { padding: 46px 20px; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .about-grid, .vm-grid { grid-template-columns: 1fr; }
+      .accred-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 580px) {
+      .accred-grid, .footer-grid { grid-template-columns: 1fr; }
+      .page-hero h2 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div><span><i class="fas fa-phone-alt"></i> +91 361-000-0000</span><span style="margin-left:16px;"><i class="fas fa-envelope"></i> info@aei.ac.in</span></div>
+  <div><a href="#">Student Corner</a><a href="#">Webmail</a><span class="topbar-badge">AICTE Approved</span></div>
+</div>
+
+<header>
+  <div class="header-left">
+    <div class="logo-circle"><span>AEI</span></div>
+    <div class="college-info">
+      <h1>Assam Engineering Institute</h1>
+      <p>Est. 1948 &nbsp;|&nbsp; Affiliated to SCTE, Assam &nbsp;|&nbsp; Chandmari, Guwahati – 781003</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+    <a href="admissions.html" class="btn-apply">Apply Now</a>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html" class="active">About</a>
+  <a href="courses.html">Courses</a>
+  <a href="admissions.html">Admissions</a>
+  <a href="placement.html">Placement</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="page-hero">
+  <div class="breadcrumb">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <span class="sep">›</span>
+    <span class="cur">About AEI</span>
+  </div>
+  <h2>About <span>Assam Engineering Institute</span></h2>
+  <p>One of the oldest and most respected technical institutions in Northeast India — shaping engineers since 1948.</p>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">1948</div><div class="stat-label">Established</div></div>
+  <div class="stat-item"><div class="stat-num">76+</div><div class="stat-label">Years of Excellence</div></div>
+  <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Departments</div></div>
+  <div class="stat-item"><div class="stat-num">5000+</div><div class="stat-label">Alumni</div></div>
+</div>
+
+<!-- ABOUT -->
+<section>
+  <div class="about-grid">
+    <div class="about-img">
+      <i class="fas fa-university"></i>
+      <p>.........</p>
+      <div class="year-badge">Est. 1948</div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">Our Story</div>
+      <h2 class="section-title">A Legacy Since 1948</h2>
+      <p>Assam Engineering Institute was first established as the <strong>"Assam Civil Engineering School"</strong> in 1948. Located in the heart of Guwahati, it is one of the premier technical institutions in all of Northeast India.</p>
+      <p>Affiliated to the State Council for Technical Education (SCTE), Assam and approved by AICTE, AEI today offers diploma programmes across six engineering disciplines, producing skilled engineers who serve industries across India and abroad.</p>
+      <ul class="about-points">
+        <li><i class="fas fa-check-circle"></i> AICTE approved & affiliated to SCTE, Assam</li>
+        <li><i class="fas fa-check-circle"></i> Fully residential campus with hostel, library & sports facilities</li>
+        <li><i class="fas fa-check-circle"></i> MOU signed with NIELIT for skill training</li>
+        <li><i class="fas fa-check-circle"></i> Strong industry linkages for placements and internships</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VISION MISSION -->
+<section class="vm-section">
+  <div style="text-align:center;margin-bottom:36px;">
+    <div class="section-label" style="text-align:center;">Our Purpose</div>
+    <h2 class="section-title" style="text-align:center;">Vision & Mission</h2>
+  </div>
+  <div class="vm-grid">
+    <div class="vm-card vision">
+      <div class="vm-icon"><i class="fas fa-eye"></i></div>
+      <h3>Our Vision</h3>
+      <p>To be a centre of excellence in technical education — contributing to society's changing needs and emerging as the leading hub of diploma engineering in Northeast India.</p>
+    </div>
+    <div class="vm-card mission">
+      <div class="vm-icon"><i class="fas fa-bullseye"></i></div>
+      <h3>Our Mission</h3>
+      <ul class="vm-list">
+        <li><i class="fas fa-angle-right"></i> Impart technical knowledge and practical engineering skills</li>
+        <li><i class="fas fa-angle-right"></i> Promote entrepreneurship and technology-driven learning</li>
+        <li><i class="fas fa-angle-right"></i> Instill ethical values and social responsibility</li>
+        <li><i class="fas fa-angle-right"></i> Build strong industry–academia partnerships</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ACCREDITATION -->
+<section>
+  <div class="section-label">Recognition</div>
+  <h2 class="section-title">Accreditation & Affiliation</h2>
+  <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:30px;">AEI is recognized by leading national bodies ensuring quality technical education.</p>
+  <div class="accred-grid">
+    <div class="accred-card">
+      <div class="accred-icon"><i class="fas fa-award"></i></div>
+      <div><h4>AICTE Approved</h4><p>All India Council for Technical Education — national regulatory body</p></div>
+    </div>
+    <div class="accred-card">
+      <div class="accred-icon"><i class="fas fa-university"></i></div>
+      <div><h4>Affiliated to SCTE</h4><p>State Council for Technical Education, Assam</p></div>
+    </div>
+    <div class="accred-card">
+      <div class="accred-icon"><i class="fas fa-handshake"></i></div>
+      <div><h4>NIELIT Partnership</h4><p>MOU signed for skill development and training programmes</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Assam Engineering Institute</h3>
+      <p>A premier government technical institution of Assam, providing quality diploma engineering education since 1948. Affiliated to SCTE Assam and approved by AICTE.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About AEI</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="placement.html">Placement</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <ul>
+        <li><a href="#">Civil Engineering</a></li>
+        <li><a href="#">Electrical Engineering</a></li>
+        <li><a href="#">Mechanical Engineering</a></li>
+        <li><a href="#">Computer Engineering</a></li>
+        <li><a href="#">ETC Engineering</a></li>
+        <li><a href="#">Chemical Engineering</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <div class="f-contact">
+        <div class="f-contact-item"><i class="fas fa-map-marker-alt"></i><span>M.D. Road, Chandmari, Guwahati, Assam – 781003</span></div>
+        <div class="f-contact-item"><i class="fas fa-phone-alt"></i><span>+91 361-000-0000</span></div>
+        <div class="f-contact-item"><i class="fas fa-envelope"></i><span>info@aei.ac.in</span></div>
+        <div class="f-contact-item"><i class="fas fa-clock"></i><span>Mon – Sat: 9:00 AM – 5:00 PM</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Assam Engineering Institute. All rights reserved. | Designed as a <span>Final Year Project</span></div>
+</footer>
+
+</body>
+</html>

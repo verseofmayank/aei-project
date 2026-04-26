@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – Assam Engineering Institute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root{--navy:#0a1f44;--navy-light:#122558;--gold:#c9a84c;--gold-light:#e8c96d;--white:#ffffff;--offwhite:#f7f8fc;--text:#2d2d2d;--text-muted:#6b7280;--border:#e5e7eb;--shadow:0 4px 24px rgba(10,31,68,0.10);--radius:12px;--red:#dc2626;--green:#16a34a;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--offwhite);}
+    .topbar{background:var(--navy);color:#ccd6f0;font-size:.78rem;padding:7px 40px;display:flex;justify-content:space-between;align-items:center;}
+    .topbar a{color:var(--gold-light);text-decoration:none;margin-left:16px;}
+    .topbar-badge{background:var(--gold);color:var(--navy);font-weight:700;font-size:.7rem;padding:2px 8px;border-radius:4px;margin-left:10px;}
+    header{background:var(--white);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:1000;box-shadow:0 2px 12px rgba(10,31,68,.08);}
+    .header-left{display:flex;align-items:center;gap:16px;}
+    .logo-circle{width:58px;height:58px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid var(--gold);flex-shrink:0;}
+    .logo-circle span{color:var(--gold);font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;}
+    .college-info h1{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--navy);}
+    .college-info p{font-size:.76rem;color:var(--text-muted);margin-top:2px;}
+    nav{background:var(--navy);padding:0 40px;display:flex;}
+    nav a{color:#c8d4ec;text-decoration:none;font-size:.87rem;font-weight:500;padding:13px 16px;display:block;transition:color .2s;}
+    nav a:hover{color:var(--gold);}
+    .page-hero{background:linear-gradient(120deg,var(--navy) 0%,#1a3a7a 100%);padding:48px 40px;position:relative;overflow:hidden;}
+    .page-hero h2{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--white);margin-bottom:8px;position:relative;z-index:2;}
+    .page-hero h2 span{color:var(--gold);}
+    .page-hero p{color:#a8bde0;font-size:.93rem;max-width:480px;line-height:1.7;position:relative;z-index:2;}
+    .breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+    .breadcrumb a{color:#a8bde0;text-decoration:none;font-size:.8rem;}
+    .breadcrumb .cur,.breadcrumb .sep{color:#a8bde0;font-size:.8rem;}
+    .breadcrumb .cur{color:var(--gold);}
+    .login-section{padding:60px 40px 80px;display:flex;justify-content:center;}
+    .login-wrapper{width:100%;max-width:480px;}
+    .tab-bar{display:flex;background:var(--white);border-radius:var(--radius) var(--radius) 0 0;border:1px solid var(--border);border-bottom:none;overflow:hidden;}
+    .tab-btn{flex:1;padding:15px;text-align:center;font-size:.9rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text-muted);transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'DM Sans',sans-serif;}
+    .tab-btn.active{background:var(--navy);color:var(--gold);}
+    .login-card{background:var(--white);border-radius:0 0 var(--radius) var(--radius);border:1px solid var(--border);padding:36px;box-shadow:var(--shadow);}
+    .login-panel{display:none;}
+    .login-panel.active{display:block;}
+    .role-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(10,31,68,.06);border:1px solid rgba(10,31,68,.12);color:var(--navy);font-size:.76rem;font-weight:600;padding:5px 12px;border-radius:20px;margin-bottom:22px;}
+    .role-badge i{color:var(--gold);}
+    .alert-box{display:none;padding:11px 14px;border-radius:8px;font-size:.84rem;margin-bottom:18px;align-items:center;gap:9px;}
+    .alert-box.show{display:flex;}
+    .alert-box.error{background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);color:var(--red);}
+    .alert-box.success{background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.25);color:var(--green);}
+    .form-group{margin-bottom:18px;}
+    .form-group label{display:block;font-size:.83rem;font-weight:600;color:var(--text);margin-bottom:7px;}
+    .input-wrap{position:relative;}
+    .input-wrap i.ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.85rem;pointer-events:none;}
+    .input-wrap input{width:100%;padding:11px 13px 11px 38px;border:1.5px solid var(--border);border-radius:8px;font-size:.88rem;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--offwhite);outline:none;transition:border-color .2s;}
+    .input-wrap input:focus{border-color:var(--navy);background:var(--white);box-shadow:0 0 0 3px rgba(10,31,68,.08);}
+    .toggle-pass{position:absolute;right:13px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--text-muted);font-size:.85rem;background:none;border:none;padding:0;}
+    .form-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+    .remember{display:flex;align-items:center;gap:7px;font-size:.82rem;color:var(--text-muted);cursor:pointer;}
+    .remember input{accent-color:var(--navy);}
+    .forgot-link{font-size:.82rem;color:var(--navy);text-decoration:none;font-weight:500;}
+    .btn-submit{width:100%;padding:13px;background:var(--navy);color:var(--white);border:none;border-radius:8px;font-size:.92rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .2s;}
+    .btn-submit:hover{background:var(--navy-light);}
+    .btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+    .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .divider{display:flex;align-items:center;gap:12px;margin:22px 0;}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+    .divider span{font-size:.78rem;color:var(--text-muted);}
+    .register-prompt{text-align:center;font-size:.84rem;color:var(--text-muted);}
+    .register-prompt a{color:var(--navy);font-weight:600;text-decoration:none;}
+    .admin-note{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:12px 14px;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;}
+    .admin-note i{color:var(--gold);margin-top:2px;}
+    .admin-note p{font-size:.8rem;color:var(--navy);line-height:1.5;}
+    footer{background:#060f22;color:#8a9bc4;padding:50px 40px 0;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:36px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.08);}
+    .footer-brand h3{font-family:'Playfair Display',serif;color:#fff;font-size:1.05rem;margin-bottom:10px;}
+    .footer-brand p{font-size:.8rem;line-height:1.7;margin-bottom:14px;}
+    .social-links{display:flex;gap:9px;}
+    .social-links a{width:32px;height:32px;background:rgba(255,255,255,.07);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#8a9bc4;text-decoration:none;transition:all .2s;}
+    .social-links a:hover{background:var(--gold);color:var(--navy);}
+    .footer-col h4{color:#fff;font-size:.84rem;font-weight:600;margin-bottom:14px;}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .footer-col ul li a{color:#8a9bc4;text-decoration:none;font-size:.8rem;}
+    .footer-col ul li a:hover{color:var(--gold);}
+    .f-contact{display:flex;flex-direction:column;gap:10px;}
+    .f-contact-item{display:flex;gap:9px;align-items:flex-start;font-size:.8rem;}
+    .f-contact-item i{color:var(--gold);margin-top:3px;font-size:.82rem;}
+    .footer-bottom{padding:16px 0;text-align:center;font-size:.76rem;color:#4a5a7a;}
+    .footer-bottom span{color:var(--gold);}
+    @media(max-width:600px){.topbar,header,nav,.page-hero,.login-section{padding-left:16px;padding-right:16px;}.login-card{padding:24px 18px;}.footer-grid{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div><i class="fas fa-phone-alt"></i> +91 361-000-0000 &nbsp;|&nbsp; <i class="fas fa-envelope"></i> info@aei.ac.in</div>
+  <div><a href="#">Student Corner</a><a href="#">Webmail</a><span class="topbar-badge">AICTE Approved</span></div>
+</div>
+
+<header>
+  <div class="header-left">
+    <div class="logo-circle"><span>AEI</span></div>
+    <div class="college-info">
+      <h1>Assam Engineering Institute</h1>
+      <p>Est. 1948 &nbsp;|&nbsp; Affiliated to SCTE, Assam &nbsp;|&nbsp; Chandmari, Guwahati – 781003</p>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="courses.html">Courses</a>
+  <a href="admissions.html">Admissions</a><a href="placement.html">Placement</a><a href="contact.html">Contact</a>
+</nav>
+
+<div class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span><span class="cur">Login</span></div>
+  <h2>Portal <span>Login</span></h2>
+  <p>Access your student or admin dashboard using your registered credentials.</p>
+</div>
+
+<div class="login-section">
+  <div class="login-wrapper">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('student',this)"><i class="fas fa-user-graduate"></i> Student Login</button>
+      <button class="tab-btn" onclick="switchTab('admin',this)"><i class="fas fa-user-shield"></i> Admin Login</button>
+    </div>
+    <div class="login-card">
+
+      <!-- STUDENT -->
+      <div class="login-panel active" id="panel-student">
+        <div class="role-badge"><i class="fas fa-user-graduate"></i> Student Portal</div>
+        <div class="alert-box error" id="s-alert"><i class="fas fa-exclamation-circle"></i><span id="s-alert-msg"></span></div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrap"><i class="fas fa-envelope ico"></i><input type="email" id="s-email" placeholder="your@email.com"/></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock ico"></i>
+            <input type="password" id="s-pass" placeholder="Enter your password"/>
+            <button class="toggle-pass" onclick="togglePass('s-pass',this)" tabindex="-1"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="remember"><input type="checkbox"/> Remember me</label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+        <button class="btn-submit" id="s-btn" onclick="loginStudent()">
+          <div class="spinner" id="s-spin"></div>
+          <i class="fas fa-sign-in-alt" id="s-ico"></i> Login to Student Portal
+        </button>
+        <div class="divider"><span>New student?</span></div>
+        <div class="register-prompt">Don't have an account? <a href="register.html">Register here</a></div>
+      </div>
+
+      <!-- ADMIN -->
+      <div class="login-panel" id="panel-admin">
+        <div class="admin-note"><i class="fas fa-shield-alt"></i><p><strong>Admin Access Only.</strong> Restricted to authorised faculty and administrative staff. Unauthorised access is prohibited.</p></div>
+        <div class="role-badge"><i class="fas fa-user-shield"></i> Admin Portal</div>
+        <div class="alert-box error" id="a-alert"><i class="fas fa-exclamation-circle"></i><span id="a-alert-msg"></span></div>
+        <div class="form-group">
+          <label>Admin Email</label>
+          <div class="input-wrap"><i class="fas fa-envelope ico"></i><input type="email" id="a-email" placeholder="admin@aei.ac.in"/></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock ico"></i>
+            <input type="password" id="a-pass" placeholder="Enter admin password"/>
+            <button class="toggle-pass" onclick="togglePass('a-pass',this)" tabindex="-1"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="remember"><input type="checkbox"/> Remember me</label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+        <button class="btn-submit" id="a-btn" onclick="loginAdmin()">
+          <div class="spinner" id="a-spin"></div>
+          <i class="fas fa-sign-in-alt" id="a-ico"></i> Login to Admin Portal
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Assam Engineering Institute</h3>
+      <p>A premier government technical institution of Assam, providing quality diploma engineering education since 1948.</p>
+      <div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a></div>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About AEI</a></li><li><a href="courses.html">Courses</a></li><li><a href="admissions.html">Admissions</a></li><li><a href="placement.html">Placement</a></li></ul></div>
+    <div class="footer-col"><h4>Departments</h4><ul><li><a href="#">Civil Engineering</a></li><li><a href="#">Electrical Engineering</a></li><li><a href="#">Mechanical Engineering</a></li><li><a href="#">Computer Engineering</a></li><li><a href="#">ETC Engineering</a></li></ul></div>
+    <div class="footer-col"><h4>Contact Us</h4><div class="f-contact"><div class="f-contact-item"><i class="fas fa-map-marker-alt"></i><span>Chandmari, Guwahati, Assam – 781003</span></div><div class="f-contact-item"><i class="fas fa-phone-alt"></i><span>+91 361-000-0000</span></div><div class="f-contact-item"><i class="fas fa-envelope"></i><span>info@aei.ac.in</span></div></div></div>
+  </div>
+  <div class="footer-bottom">© 2025 Assam Engineering Institute. All rights reserved. | Designed as a <span>Final Year Project</span></div>
+</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const app = initializeApp({
+    apiKey:"AIzaSyAvDe8YoaWF4fkz77qH96WgM4EnADcQZ7s",
+    authDomain:"aei-project-45c7d.firebaseapp.com",
+    projectId:"aei-project-45c7d",
+    storageBucket:"aei-project-45c7d.firebasestorage.app",
+    messagingSenderId:"836915665584",
+    appId:"1:836915665584:web:58553eb01efb2b18717975"
+  });
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Auto-redirect if already logged in
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    try {
+      const snap = await getDoc(doc(db,"users",user.uid));
+      if (snap.exists()) {
+        window.location.href = snap.data().role === 'admin' ? 'admin-dashboard.html' : 'student-dashboard.html';
+      }
+    } catch(e){}
+  });
+
+  const errMsgs = {
+    'auth/user-not-found':'No account found with this email.',
+    'auth/wrong-password':'Incorrect password. Try again.',
+    'auth/invalid-email':'Please enter a valid email address.',
+    'auth/too-many-requests':'Too many attempts. Try again later.',
+    'auth/invalid-credential':'Invalid email or password.',
+  };
+
+  function showAlert(id, msg) {
+    const el = document.getElementById(id);
+    el.querySelector('span').textContent = msg;
+    el.classList.add('show');
+    setTimeout(()=>el.classList.remove('show'), 5000);
+  }
+  function setLoad(prefix, on) {
+    document.getElementById(prefix+'-spin').style.display = on?'block':'none';
+    document.getElementById(prefix+'-ico').style.display = on?'none':'inline';
+    document.getElementById(prefix+'-btn').disabled = on;
+  }
+
+  window.loginStudent = async function() {
+    const email = document.getElementById('s-email').value.trim();
+    const pass  = document.getElementById('s-pass').value;
+    if (!email||!pass){showAlert('s-alert','Please enter your email and password.');return;}
+    setLoad('s',true);
+    try {
+      const cred = await signInWithEmailAndPassword(auth,email,pass);
+      const snap = await getDoc(doc(db,"users",cred.user.uid));
+      if (!snap.exists()){showAlert('s-alert','Account not found. Please register first.');await auth.signOut();setLoad('s',false);return;}
+      if (snap.data().role==='admin'){showAlert('s-alert','This is an admin account. Use the Admin tab.');await auth.signOut();setLoad('s',false);return;}
+      window.location.href='student-dashboard.html';
+    } catch(e){setLoad('s',false);showAlert('s-alert',errMsgs[e.code]||'Login failed. Please try again.');}
+  };
+
+  window.loginAdmin = async function() {
+    const email = document.getElementById('a-email').value.trim();
+    const pass  = document.getElementById('a-pass').value;
+    if (!email||!pass){showAlert('a-alert','Please enter email and password.');return;}
+    setLoad('a',true);
+    try {
+      const cred = await signInWithEmailAndPassword(auth,email,pass);
+      const snap = await getDoc(doc(db,"users",cred.user.uid));
+      if (!snap.exists()||snap.data().role!=='admin'){showAlert('a-alert','Access denied. Admin accounts only.');await auth.signOut();setLoad('a',false);return;}
+      window.location.href='admin-dashboard.html';
+    } catch(e){setLoad('a',false);showAlert('a-alert',errMsgs[e.code]||'Login failed. Please try again.');}
+  };
+
+  // Enter key support
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Enter')return;
+    const panel=document.querySelector('.login-panel.active').id;
+    if(panel==='panel-student')window.loginStudent();
+    else window.loginAdmin();
+  });
+</script>
+<script>
+  function switchTab(role,btn){
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.login-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+role).classList.add('active');
+  }
+  function togglePass(id,btn){
+    const inp=document.getElementById(id);
+    inp.type=inp.type==='password'?'text':'password';
+    btn.querySelector('i').className=inp.type==='password'?'fas fa-eye':'fas fa-eye-slash';
+  }
+</script>
+</body>
+</html>

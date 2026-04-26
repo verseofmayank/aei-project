@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assam Engineering Institute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --navy: #0a1f44;
+      --navy-light: #122558;
+      --gold: #c9a84c;
+      --gold-light: #e8c96d;
+      --white: #ffffff;
+      --offwhite: #f7f8fc;
+      --text: #2d2d2d;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 4px 24px rgba(10,31,68,0.10);
+      --radius: 12px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+    .topbar { background: var(--navy); color: #ccd6f0; font-size: 0.78rem; padding: 7px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .topbar a { color: var(--gold-light); text-decoration: none; margin-left: 16px; }
+    .topbar-badge { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+
+    header { background: var(--white); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 12px rgba(10,31,68,0.08); }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .logo-circle { width: 58px; height: 58px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid var(--gold); flex-shrink: 0; }
+    .logo-circle span { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+    .college-info h1 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--navy); }
+    .college-info p { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
+    .header-right { display: flex; gap: 10px; }
+    .btn-login { background: var(--navy); color: var(--white); padding: 8px 20px; border-radius: 6px; text-decoration: none; font-size: 0.84rem; font-weight: 500; }
+    .btn-apply { background: var(--gold); color: var(--navy); padding: 8px 20px; border-radius: 6px; text-decoration: none; font-size: 0.84rem; font-weight: 600; }
+
+    nav { background: var(--navy); padding: 0 40px; display: flex; }
+    nav a { color: #c8d4ec; text-decoration: none; font-size: 0.87rem; font-weight: 500; padding: 13px 16px; display: block; position: relative; transition: color 0.2s; }
+    nav a:hover, nav a.active { color: var(--gold); }
+    nav a.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--gold); }
+
+    .ticker-wrap { background: #fff8e7; border-bottom: 1px solid #f0e0a0; padding: 8px 40px; display: flex; align-items: center; gap: 12px; overflow: hidden; }
+    .ticker-label { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.7rem; padding: 3px 10px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
+    .ticker-track { display: flex; gap: 60px; animation: ticker 20s linear infinite; white-space: nowrap; }
+    .ticker-track span { font-size: 0.82rem; color: var(--navy); }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    .hero { background: linear-gradient(120deg, var(--navy) 0%, #1a3a7a 100%); padding: 80px 40px; display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 450px; height: 450px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%); }
+    .hero-content { max-width: 560px; position: relative; z-index: 2; }
+    .hero-badge { display: inline-block; border: 1px solid var(--gold); color: var(--gold); font-size: 0.74rem; font-weight: 600; padding: 4px 14px; border-radius: 20px; margin-bottom: 18px; letter-spacing: 0.08em; }
+    .hero h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+    .hero h2 span { color: var(--gold); }
+    .hero p { color: #a8bde0; font-size: 1rem; line-height: 1.7; margin-bottom: 28px; }
+    .hero-btns { display: flex; gap: 12px; }
+    .hero-btns a { padding: 11px 26px; border-radius: 7px; font-weight: 600; font-size: 0.88rem; text-decoration: none; }
+    .btn-primary { background: var(--gold); color: var(--navy); }
+    .btn-outline { border: 2px solid rgba(255,255,255,0.3); color: var(--white); }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; position: relative; z-index: 2; }
+    .hero-stat { background: rgba(255,255,255,0.07); border: 1px solid rgba(201,168,76,0.25); border-radius: var(--radius); padding: 20px 24px; text-align: center; }
+    .hero-stat .num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); font-weight: 700; }
+    .hero-stat .lbl { font-size: 0.74rem; color: #a8bde0; margin-top: 4px; }
+
+    section { padding: 64px 40px; }
+    .section-label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--navy); margin-bottom: 10px; }
+    .section-sub { color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 36px; }
+
+    .notices-section { background: var(--offwhite); }
+    .notices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .notices-panel { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .panel-head { background: var(--navy); color: var(--white); padding: 13px 18px; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.88rem; }
+    .panel-head span { color: var(--gold); font-size: 0.74rem; cursor: pointer; }
+    .notice-item { padding: 13px 18px; border-bottom: 1px solid var(--border); display: flex; gap: 12px; align-items: flex-start; }
+    .notice-date { background: var(--navy); color: var(--gold); border-radius: 5px; padding: 4px 7px; font-size: 0.66rem; font-weight: 700; text-align: center; min-width: 38px; flex-shrink: 0; }
+    .notice-text { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+    .new-tag { display: inline-block; background: #ef4444; color: white; font-size: 0.58rem; padding: 1px 5px; border-radius: 3px; margin-left: 5px; font-weight: 700; vertical-align: middle; }
+    .coming-soon-notice { padding: 18px; text-align: center; color: var(--text-muted); font-size: 0.8rem; font-style: italic; }
+
+    .dept-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .dept-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 22px; transition: all 0.22s; position: relative; overflow: hidden; }
+    .dept-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.22s; }
+    .dept-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .dept-card:hover::before { transform: scaleY(1); }
+    .dept-icon { width: 46px; height: 46px; background: rgba(10,31,68,0.07); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--navy); margin-bottom: 14px; }
+    .dept-card h3 { font-size: 0.93rem; font-weight: 600; color: var(--navy); margin-bottom: 5px; }
+    .dept-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+    .dept-tag { display: inline-block; background: var(--offwhite); color: var(--navy); font-size: 0.68rem; padding: 3px 9px; border-radius: 20px; border: 1px solid var(--border); margin-top: 10px; font-weight: 500; }
+
+    .quick-links-section { background: var(--navy); }
+    .quick-links-section .section-title { color: var(--white); }
+    .quick-links-section .section-sub { color: #a8bde0; }
+    .links-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .link-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: var(--radius); padding: 24px 20px; text-align: center; text-decoration: none; transition: all 0.2s; color: var(--white); display: block; }
+    .link-card:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); }
+    .link-card i { font-size: 1.6rem; color: var(--gold); margin-bottom: 10px; display: block; }
+    .link-card span { font-size: 0.84rem; font-weight: 500; }
+
+    footer { background: #060f22; color: #8a9bc4; padding: 50px 40px 0; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: 36px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand h3 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.05rem; margin-bottom: 10px; }
+    .footer-brand p { font-size: 0.8rem; line-height: 1.7; margin-bottom: 14px; }
+    .social-links { display: flex; gap: 9px; }
+    .social-links a { width: 32px; height: 32px; background: rgba(255,255,255,0.07); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8a9bc4; text-decoration: none; transition: all 0.2s; }
+    .social-links a:hover { background: var(--gold); color: var(--navy); }
+    .footer-col h4 { color: var(--white); font-size: 0.84rem; font-weight: 600; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a { color: #8a9bc4; text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .f-contact { display: flex; flex-direction: column; gap: 10px; }
+    .f-contact-item { display: flex; gap: 9px; align-items: flex-start; font-size: 0.8rem; }
+    .f-contact-item i { color: var(--gold); margin-top: 3px; font-size: 0.82rem; }
+    .footer-bottom { padding: 16px 0; text-align: center; font-size: 0.76rem; color: #4a5a7a; }
+    .footer-bottom span { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .topbar, header, nav, section, .notices-section, .quick-links-section, .ticker-wrap { padding-left: 20px; padding-right: 20px; }
+      .hero { flex-direction: column; gap: 36px; padding: 50px 20px; }
+      .hero h2 { font-size: 2rem; }
+      .notices-grid, .dept-grid, .links-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 580px) {
+      .dept-grid, .links-grid, .footer-grid, .notices-grid { grid-template-columns: 1fr; }
+      .college-info h1 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div><span><i class="fas fa-phone-alt"></i> +91 361-000-0000</span><span style="margin-left:16px;"><i class="fas fa-envelope"></i> info@aei.ac.in</span></div>
+  <div><a href="#">Student Corner</a><a href="#">Webmail</a><span class="topbar-badge">AICTE Approved</span></div>
+</div>
+
+<header>
+  <div class="header-left">
+    <div class="logo-circle"><span>AEI</span></div>
+    <div class="college-info">
+      <h1>Assam Engineering Institute</h1>
+      <p>Est. 1948 &nbsp;|&nbsp; Affiliated to SCTE, Assam &nbsp;|&nbsp; Chandmari, Guwahati – 781003</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+    <a href="admissions.html" class="btn-apply">Apply Now</a>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="courses.html">Courses</a>
+  <a href="admissions.html">Admissions</a>
+  <a href="placement.html">Placement</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="ticker-wrap">
+  <span class="ticker-label">📢 NOTICE</span>
+  <div style="overflow:hidden;flex:1;">
+    <div class="ticker-track">
+      <span>📋 Admission open for Diploma 2025-26 – Apply before 30th June &nbsp;&nbsp;&nbsp;</span>
+      <span>📅 End Semester Examination schedule published &nbsp;&nbsp;&nbsp;</span>
+      <span>💼 Campus Recruitment Drive – L&T & ONGC visiting on 20th June 2025 &nbsp;&nbsp;&nbsp;</span>
+      <span>📋 Admission open for Diploma 2025-26 – Apply before 30th June &nbsp;&nbsp;&nbsp;</span>
+      <span>📅 End Semester Examination schedule published &nbsp;&nbsp;&nbsp;</span>
+      <span>💼 Campus Recruitment Drive – L&T & ONGC visiting on 20th June 2025 &nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">⭐ Premier Technical Institution Since 1948</div>
+    <h2>Shaping Engineers,<br/><span>Building Tomorrow</span></h2>
+    <p>Assam Engineering Institute is one of the oldest technical institutions in Northeast India — committed to excellence in diploma engineering education.</p>
+    <div class="hero-btns">
+      <a href="admissions.html" class="btn-primary">Explore Admissions</a>
+      <a href="about.html" class="btn-outline">About AEI</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">1948</div><div class="lbl">Established</div></div>
+    <div class="hero-stat"><div class="num">6</div><div class="lbl">Departments</div></div>
+    <div class="hero-stat"><div class="num">5000+</div><div class="lbl">Alumni</div></div>
+    <div class="hero-stat"><div class="num">85%</div><div class="lbl">Placement</div></div>
+  </div>
+</section>
+
+<section class="notices-section">
+  <div class="section-label">Latest Updates</div>
+  <h2 class="section-title">Notices & Announcements</h2>
+  <div class="notices-grid">
+    <div class="notices-panel">
+      <div class="panel-head"><span><i class="fas fa-bell"></i> Official Notices</span><span>View All →</span></div>
+      <div class="notice-item">
+        <div class="notice-date">JUN<br/>12</div>
+        <div class="notice-text">Admission notification for Diploma 2025-26 published <span class="new-tag">NEW</span></div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">JUN<br/>08</div>
+        <div class="notice-text">End Semester Examination time table released for all branches</div>
+      </div>
+      <div class="coming-soon-notice">More notices will be updated soon...</div>
+    </div>
+    <div class="notices-panel">
+      <div class="panel-head"><span><i class="fas fa-calendar-alt"></i> Events & Activities</span><span>View All →</span></div>
+      <div class="notice-item">
+        <div class="notice-date">JUL<br/>15</div>
+        <div class="notice-text">Annual Convocation Ceremony 2025 — Final year students register <span class="new-tag">NEW</span></div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date">JUN<br/>20</div>
+        <div class="notice-text">Campus Recruitment Drive — L&T, ONGC visiting. Register by 18th June</div>
+      </div>
+      <div class="coming-soon-notice">More events will be updated soon...</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Academic Programmes</div>
+  <h2 class="section-title">Courses Offered</h2>
+  <p class="section-sub">3-year Diploma programmes across 6 engineering disciplines — AICTE approved, affiliated to SCTE Assam.</p>
+  <div class="dept-grid">
+    <div class="dept-card"><div class="dept-icon"><i class="fas fa-hard-hat"></i></div><h3>Civil Engineering</h3><p>Structural design, construction technology and infrastructure development.</p><span class="dept-tag">60 Seats</span></div>
+    <div class="dept-card"><div class="dept-icon"><i class="fas fa-bolt"></i></div><h3>Electrical Engineering</h3><p>Power systems, electrical machines and industrial automation.</p><span class="dept-tag">60 Seats</span></div>
+    <div class="dept-card"><div class="dept-icon"><i class="fas fa-cogs"></i></div><h3>Mechanical Engineering</h3><p>Thermodynamics, manufacturing processes and machine design.</p><span class="dept-tag">60 Seats</span></div>
+    <div class="dept-card"><div class="dept-icon"><i class="fas fa-laptop-code"></i></div><h3>Computer Engineering</h3><p>Programming, networking, databases and web technologies.</p><span class="dept-tag">60 Seats</span></div>
+    <div class="dept-card"><div class="dept-icon"><i class="fas fa-microchip"></i></div><h3>Electronics & Telecom</h3><p>Electronic circuits, communication systems and embedded systems.</p><span class="dept-tag">60 Seats</span></div>
+    <div class="dept-card"><div class="dept-icon"><i class="fas fa-flask"></i></div><h3>Chemical Engineering</h3><p>Chemical process technology, instrumentation and process control.</p><span class="dept-tag">60 Seats</span></div>
+  </div>
+  <div style="text-align:center;margin-top:32px;">
+    <a href="courses.html" style="display:inline-block;border:2px solid var(--navy);color:var(--navy);padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.87rem;">View All Courses →</a>
+  </div>
+</section>
+
+<section class="quick-links-section">
+  <div class="section-label">Student Services</div>
+  <h2 class="section-title">Quick Access</h2>
+  <p class="section-sub">Access key services and information from one place.</p>
+  <div class="links-grid">
+    <a href="admissions.html" class="link-card"><i class="fas fa-file-alt"></i><span>Admissions</span></a>
+    <a href="login.html" class="link-card"><i class="fas fa-user-graduate"></i><span>Student Portal</span></a>
+    <a href="placement.html" class="link-card"><i class="fas fa-briefcase"></i><span>Placements</span></a>
+    <a href="contact.html" class="link-card"><i class="fas fa-phone-alt"></i><span>Contact Us</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Assam Engineering Institute</h3>
+      <p>A premier government technical institution of Assam, providing quality diploma engineering education since 1948. Affiliated to SCTE Assam and approved by AICTE.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About AEI</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="placement.html">Placement</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <ul>
+        <li><a href="#">Civil Engineering</a></li>
+        <li><a href="#">Electrical Engineering</a></li>
+        <li><a href="#">Mechanical Engineering</a></li>
+        <li><a href="#">Computer Engineering</a></li>
+        <li><a href="#">ETC Engineering</a></li>
+        <li><a href="#">Chemical Engineering</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <div class="f-contact">
+        <div class="f-contact-item"><i class="fas fa-map-marker-alt"></i><span>M.D. Road, Chandmari, Guwahati, Assam – 781003</span></div>
+        <div class="f-contact-item"><i class="fas fa-phone-alt"></i><span>+91 361-000-0000</span></div>
+        <div class="f-contact-item"><i class="fas fa-envelope"></i><span>info@aei.ac.in</span></div>
+        <div class="f-contact-item"><i class="fas fa-clock"></i><span>Mon – Sat: 9:00 AM – 5:00 PM</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Assam Engineering Institute. All rights reserved. | Designed as a <span>Final Year Project</span></div>
+</footer>
+
+</body>
+</html>
