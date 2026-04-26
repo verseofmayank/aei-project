@@ -224,8 +224,8 @@
       <span class="notif-dot" id="notif-dot"></span>
     </button>
     <div class="user-pill">
-      <div class="user-avatar"></div>
-      <span>abhay yadav </span>
+      <div class="user-avatar" id="header-avatar"></div>
+      <span id="header-name">Loading…</span>
     </div>
     <button class="btn-logout" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
   </div>
@@ -244,10 +244,10 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-profile">
-      <div class="profile-avatar">AY</div>
-      <h3>abhay yadav</h3>
-      <p>AEI/2023/CE/042</p>
-      <div class="sidebar-badge">5th  Sem CE</div>
+      <div class="profile-avatar" id="sidebar-initials">…</div>
+      <h3 id="sidebar-name">Loading…</h3>
+      <p id="sidebar-roll">—</p>
+      <div class="sidebar-badge" id="sidebar-badge">—</div>
     </div>
     <div class="sidebar-menu">
       <div class="menu-label">Main</div>
@@ -269,7 +269,7 @@
     <div id="sec-overview">
       <div class="welcome-bar">
         <div>
-          <h2>Welcome back, <span>abhay</span> 👋</h2>
+          <h2>Welcome back,  👋</h2>
           <p>Here's your academic summary for this semester.</p>
         </div>
         <div class="welcome-date">
@@ -465,7 +465,7 @@
       <p>Are you sure you want to logout from the student portal?</p>
       <div style="display:flex;gap:10px;margin-top:20px;">
         <button onclick="document.getElementById('logout-modal').classList.remove('open')" style="flex:1;padding:10px;border:1.5px solid var(--border);background:transparent;border-radius:7px;font-size:0.88rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Cancel</button>
-        <button onclick="window.location.href='login.html'" style="flex:1;padding:10px;background:var(--red);color:var(--white);border:none;border-radius:7px;font-size:0.88rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;">Logout</button>
+        <button onclick="window.doStudentLogout ? window.doStudentLogout() : window.location.href='login.html'" style="flex:1;padding:10px;background:var(--red);color:var(--white);border:none;border-radius:7px;font-size:0.88rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;">Logout</button>
       </div>
     </div>
   </div>
@@ -706,23 +706,35 @@ function renderTimetable() {
 }
 
 /* ---- PROFILE ---- */
+let studentProfile = {};
 function renderProfile() {
+  const d = window.studentProfile || studentProfile;
+  const fullName = (d.firstName && d.lastName) ? d.firstName + ' ' + d.lastName : (d.name || 'Student');
+  const roll     = d.rollNo || d.rollNumber || '—';
+  const dept     = d.department || d.dept || '—';
+  const sem      = d.semester || '—';
+  const ini      = fullName.trim().split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
   document.getElementById('profile-body').innerHTML = `
     <div style="display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;">
       <div style="text-align:center;">
-        <div style="width:90px;height:90px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;border:3px solid var(--gold);margin:0 auto 10px;">RB</div>
+        <div style="width:90px;height:90px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;border:3px solid var(--gold);margin:0 auto 10px;">${ini}</div>
         <button style="font-size:0.76rem;background:var(--offwhite);border:1px solid var(--border);border-radius:6px;padding:5px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--text-muted);">Change Photo</button>
       </div>
       <div>
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:4px;">abhay yadav</h3>
-        <p style="color:var(--text-muted);font-size:0.84rem;margin-bottom:18px;">AEI/2023/CE/042 &nbsp;·&nbsp; 3rd Semester · Computer Engineering</p>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:4px;">${fullName}</h3>
+        <p style="color:var(--text-muted);font-size:0.84rem;margin-bottom:18px;">${roll} &nbsp;·&nbsp; ${sem} · ${dept}</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;font-size:0.85rem;">
           ${[
-            ['Roll No.','AEI/2023/CE/042'],['Department','Computer Engineering'],
-            ['Semester','3rd Semester'],['Year of Admission','2023'],
-            ['Date of Birth','12 Mar 2005'],['Gender','Male'],
-            ['Mobile','+91 94350 XXXXX'],['Email','abhay.yadav@aei.ac.in'],
-            ['Address','Guwahati, Assam – 781001'],['Guardian','Mr. B. Barua'],
+            ['Roll No.', roll],
+            ['Department', dept],
+            ['Semester', sem],
+            ['Year of Admission', d.admissionYear || '—'],
+            ['Date of Birth', d.dob || '—'],
+            ['Gender', d.gender || '—'],
+            ['Mobile', d.mobile || '—'],
+            ['Email', d.email || '—'],
+            ['Address', d.address || '—'],
+            ['Username', d.username || '—'],
           ].map(([k,v]) => `<div><span style="color:var(--text-muted);font-size:0.76rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">${k}</span><p style="margin-top:2px;font-weight:500;color:var(--text);">${v}</p></div>`).join('')}
         </div>
       </div>
@@ -746,6 +758,76 @@ function showSection(name, el) {
 
 /* ---- LOGOUT ---- */
 function confirmLogout() { document.getElementById('logout-modal').classList.add('open'); }
+</script>
+<!-- ===== FIREBASE: Auth guard + load real student profile ===== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const app = initializeApp({
+    apiKey:            "AIzaSyAvDe8YoaWF4fkz77qH96WgM4EnADcQZ7s",
+    authDomain:        "aei-project-45c7d.firebaseapp.com",
+    projectId:         "aei-project-45c7d",
+    storageBucket:     "aei-project-45c7d.firebasestorage.app",
+    messagingSenderId: "836915665584",
+    appId:             "1:836915665584:web:58553eb01efb2b18717975"
+  });
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // Auth guard: redirect to login if not logged in or not a student
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.href = 'login.html'; return; }
+
+    try {
+      const snap = await getDoc(doc(db, "users", user.uid));
+      if (!snap.exists() || snap.data().role !== 'student') {
+        await signOut(auth);
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const data = snap.data();
+      // Make accessible to the non-module renderProfile()
+      window.studentProfile = data;
+
+      // Compute display values
+      const fullName = (data.firstName && data.lastName)
+        ? (data.firstName + ' ' + data.lastName).trim()
+        : (data.name || 'Student');
+      const roll = data.rollNo || data.rollNumber || '—';
+      const dept = data.department || data.dept || '—';
+      const sem  = data.semester || '—';
+      const ini  = fullName.trim().split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+
+      // Update header
+      document.getElementById('header-name').textContent    = fullName;
+      document.getElementById('header-avatar').textContent  = ini;
+      document.getElementById('header-avatar').style.display = 'flex';
+      document.getElementById('header-avatar').style.alignItems = 'center';
+      document.getElementById('header-avatar').style.justifyContent = 'center';
+      document.getElementById('header-avatar').style.background = 'var(--navy)';
+      document.getElementById('header-avatar').style.color = 'var(--gold)';
+      document.getElementById('header-avatar').style.fontWeight = '700';
+      document.getElementById('header-avatar').style.fontSize = '0.8rem';
+
+      // Update sidebar
+      document.getElementById('sidebar-initials').textContent = ini;
+      document.getElementById('sidebar-name').textContent    = fullName;
+      document.getElementById('sidebar-roll').textContent    = roll;
+      document.getElementById('sidebar-badge').textContent   = sem + ' ' + dept;
+
+    } catch (e) {
+      console.error('Failed to load student profile:', e);
+    }
+  });
+
+  // Logout — expose to global onclick
+  window.doStudentLogout = async function() {
+    await signOut(auth);
+    window.location.href = 'login.html';
+  };
 </script>
 </body>
 </html>
