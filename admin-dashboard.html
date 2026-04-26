@@ -534,12 +534,15 @@
       snaps.forEach(d => {
         const data = d.data();
         if (data.role === 'student') {
+          const fullName = (data.firstName && data.lastName)
+            ? (data.firstName + ' ' + data.lastName).trim()
+            : (data.firstName || data.lastName || data.name || '—');
           students.push({
             uid: d.id,
             id: idx++,
-            name: data.name || '—',
-            roll: data.rollNumber || '—',
-            dept: data.dept || '—',
+            name: fullName,
+            roll: data.rollNo || data.rollNumber || '—',
+            dept: data.department || data.dept || '—',
             sem: data.semester || '—',
             status: data.status || 'active',
             mobile: data.mobile || '—',
